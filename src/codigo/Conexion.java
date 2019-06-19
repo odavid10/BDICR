@@ -78,7 +78,25 @@ public class Conexion {
         try {
             java.sql.Statement st = conexion.createStatement();
             String sql;
-            sql = "INSERT INTO HISTORICO_TRABAJO VALUES ('"+fechai+"', "+salario+", 'SECRETARIA', (SELECT ID FROM ORGANIGRAMA WHERE NOMBRE = '"+departamento+"'),"+num_expediente+");";
+            sql = "INSERT INTO HISTORICO_TRABAJO VALUES ('"+fechai+"', "+salario+", '"+cargo+"', (SELECT ID FROM ORGANIGRAMA WHERE NOMBRE = '"+departamento+"'),"+num_expediente+");";
+            result = st.executeQuery(sql);
+        } catch (SQLException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return result; 
+    }
+    
+    public ResultSet ejecutarSelectEmpleados() throws SQLException{
+        
+        ResultSet result = null;
+        
+        try {
+            java.sql.Statement st = conexion.createStatement();
+            String sql;
+            sql = "SELECT E.PRI_NOMBRE, E.PRI_APELLIDO, E.SEG_APELLIDO, H.FECHAI, O.NOMBRE, H.CARGO\n" +
+                    "FROM EMPLEADO E, HISTORICO_TRABAJO H, ORGANIGRAMA O\n" +
+                    "WHERE E.NUM_EXPEDIENTE = H.ID_EMP AND H.ID_ORG = O.ID;";
             result = st.executeQuery(sql);
         } catch (SQLException ex) {
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);

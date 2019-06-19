@@ -913,9 +913,9 @@
                         <Column editable="false" title="Primer Nombre" type="java.lang.Object"/>
                         <Column editable="false" title="Primer Apellido" type="java.lang.Object"/>
                         <Column editable="false" title="Segundo Apellido" type="java.lang.Object"/>
-                        <Column editable="false" title="Fecha Nacimiento" type="java.lang.Object"/>
-                        <Column editable="false" title="Estudios" type="java.lang.Object"/>
-                        <Column editable="false" title="Edo. C&#xed;vil" type="java.lang.Object"/>
+                        <Column editable="false" title="Fecha Ingreso" type="java.lang.Object"/>
+                        <Column editable="false" title="Departamento" type="java.lang.Object"/>
+                        <Column editable="false" title="Cargo" type="java.lang.Object"/>
                       </Table>
                     </Property>
                     <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">

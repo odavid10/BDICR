@@ -8,6 +8,7 @@ import java.time.YearMonth;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -507,7 +508,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "Primer Nombre", "Primer Apellido", "Segundo Apellido", "Fecha Nacimiento", "Estudios", "Edo. Cívil"
+                "Primer Nombre", "Primer Apellido", "Segundo Apellido", "Fecha Ingreso", "Departamento", "Cargo"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -1553,6 +1554,30 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         
         return mesAsignado;
     }
+    
+    private void insertTable(ResultSet resultado) throws SQLException{
+        ResultSet result = resultado;
+        DefaultTableModel modeloTabla = new DefaultTableModel();
+        Object[] registro = new Object[6];
+        
+        tblEmpleados.setModel(modeloTabla);
+        modeloTabla.addColumn("Primer Nombre");
+        modeloTabla.addColumn("Primer Apellido");
+        modeloTabla.addColumn("Segundo Apellido");
+        modeloTabla.addColumn("Fecha Ingreso");
+        modeloTabla.addColumn("Departamento");
+        modeloTabla.addColumn("Cargo");
+
+        while (result.next()) {
+            registro[0] = result.getString("PRI_NOMBRE");
+            registro[1] = result.getString("PRI_APELLIDO");
+            registro[2] = result.getString("SEG_APELLIDO");
+            registro[3] = result.getString("FECHAI");
+            registro[4] = result.getString("NOMBRE");
+            registro[5] = result.getString("CARGO");
+            modeloTabla.addRow(registro);
+        }
+    }
 
     //MÓDULO EMPLEADO
     private void btnAgregarEmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarEmpActionPerformed
@@ -1636,10 +1661,16 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void btnBuscarEmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarEmpActionPerformed
         
         String empleado= JOptionPane.showInputDialog("Indique el empleado que desea buscar");
-        numEmp = Integer.parseInt(empleado);
+        
+        if(empleado!= null){
+            int empBuscar = Integer.parseInt(empleado);
        
-        txtNumExp.setText(empleado);
-
+            txtNumExp.setText(empleado);
+            
+        }else{
+            System.out.println(empleado);
+        }
+        
     }//GEN-LAST:event_btnBuscarEmpActionPerformed
 
     private void btnModificarEmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarEmpActionPerformed
@@ -1716,6 +1747,16 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarEmpActionPerformed
 
     private void btnListarEmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarEmpActionPerformed
+        
+        try {
+
+                ResultSet result = cn.ejecutarSelectEmpleados();
+
+                insertTable(result);
+
+            } catch (SQLException ex) {
+                Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
         
     }//GEN-LAST:event_btnListarEmpActionPerformed
 

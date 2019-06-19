@@ -26,8 +26,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         
         incializacion();
         cn.conectar();
-        YearMonth mes = YearMonth.now();System.out.println(mes);
-        LocalDateTime ahora = LocalDateTime.now(); System.out.println(ahora);
     }
 
     @SuppressWarnings("unchecked")
@@ -1607,7 +1605,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 String civil= cmbEdoCivil.getSelectedItem().toString().toUpperCase();
                 String estudios= cmbEstudios.getSelectedItem().toString().toUpperCase();
                 String dep= cmbDepartamento.getSelectedItem().toString().toUpperCase();
-                String cargo = cmbDepartamento.getSelectedItem().toString().toUpperCase();
+                String cargo = cmbCargo.getSelectedItem().toString().toUpperCase();
                 String cod = cmbCodTlf.getSelectedItem().toString();
                 String num = txtTlf1.getText();
                 double sal = Double.parseDouble(txtSalario.getText());

@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import java.time.YearMonth;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -392,7 +393,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jPanel1.add(lblOblig1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 20, 20, -1));
 
         jLabel23.setText("Fecha");
-        jPanel1.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 20, -1, -1));
+        jPanel1.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 20, 50, -1));
 
         cmbDiaFec.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
         jPanel1.add(cmbDiaFec, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 20, -1, -1));
@@ -498,21 +499,21 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         tblEmpleados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Primer Nombre", "Primer Apellido", "Segundo Apellido", "Fecha Ingreso", "Departamento", "Cargo"
+                "Primer Nombre", "Primer Apellido", "Segundo Apellido", "Fecha Ingreso", "Departamento", "Cargo", "Genero"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -531,7 +532,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jLabel57.setText("Departamento");
         jPanel1.add(jLabel57, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, 90, -1));
 
-        cmbDepartamento.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--", "Gerencia Gral.", "Gerencia Pta.", "Secretaria", "Gerencia Téc.", "Ctr Calidad", "Mantenimiento", "Almc. Insumos", "Almc. Prod.", "Selección", "Decoración", "Refinado", "Yesería", "Rotomoldeo", "Prep. Pasta", "Hornos", " " }));
+        cmbDepartamento.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--", "Gerencia Gral.", "Gerencia Pta.", "Secretaria", "Gerencia Téc.", "Ctr Calidad", "Mantenimiento", "Almc. Insumos", "Almc. Prod.", "Selección", "Decoración", "Refinado", "Yesería", "Rotomoldeo", "Prep. Pasta", "Hornos" }));
         jPanel1.add(cmbDepartamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 230, 110, -1));
 
         jTabbedPane1.addTab("Empleado", jPanel1);
@@ -1379,6 +1380,16 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         txtSalario.setText(null);
     }
     
+    private void deshabilitarCampEmp(){
+        txtNumExp.setEditable(false);
+        txtNombre1.setEditable(false);
+        txtNombre2.setEditable(false);
+        txtApellido1.setEditable(false);
+        txtApellido2.setEditable(false);
+        txtTlf1.setEditable(false);
+        txtSalario.setEditable(false);
+    }
+    
     private void ocultarCampObligReu(){
         lblOblig15.setVisible(false);
         lblOblig16.setVisible(false);
@@ -1555,7 +1566,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         return mesAsignado;
     }
     
-    private void insertTable(ResultSet resultado) throws SQLException{
+    private void insertTableLista(ResultSet resultado) throws SQLException{
         ResultSet result = resultado;
         DefaultTableModel modeloTabla = new DefaultTableModel();
         Object[] registro = new Object[6];
@@ -1578,7 +1589,31 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             modeloTabla.addRow(registro);
         }
     }
+    
+    private void insertTableBuscar(ResultSet resultado) throws SQLException{
+        ResultSet result = resultado;
+        DefaultTableModel modeloTabla = new DefaultTableModel();
+        Object[] registro = new Object[7];
+        
+        tblEmpleados.setModel(modeloTabla);
+        modeloTabla.addColumn("Primer Nombre");
+        modeloTabla.addColumn("Primer Apellido");
+        modeloTabla.addColumn("Segundo Apellido");
+        modeloTabla.addColumn("Fecha Ingreso");
+        modeloTabla.addColumn("Departamento");
+        modeloTabla.addColumn("Cargo");
 
+        while (result.next()) {
+            registro[0] = result.getString("PRI_NOMBRE");
+            registro[1] = result.getString("PRI_APELLIDO");
+            registro[2] = result.getString("SEG_APELLIDO");
+            registro[3] = result.getString("FECHAI");
+            registro[4] = result.getString("NOMBRE");
+            registro[5] = result.getString("CARGO");
+            modeloTabla.addRow(registro);
+        }
+    }
+    
     //MÓDULO EMPLEADO
     private void btnAgregarEmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarEmpActionPerformed
         
@@ -1631,6 +1666,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 String estudios= cmbEstudios.getSelectedItem().toString().toUpperCase();
                 String dep= cmbDepartamento.getSelectedItem().toString().toUpperCase();
                 String cargo = cmbCargo.getSelectedItem().toString().toUpperCase();
+                String turno= cmbTurno.getSelectedItem().toString();
                 String cod = cmbCodTlf.getSelectedItem().toString();
                 String num = txtTlf1.getText();
                 double sal = Double.parseDouble(txtSalario.getText());
@@ -1641,9 +1677,17 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
                 
                 try {
-                    cn.ejecutarInsertEmp(numEmp, nom1, ape1, ape2, fechaN, tsangre, genero, civil, estudios, nom2);
-                    cn.ejecutarInsertEmpTlf(cod, num, numEmp);
-                    cn.ejecutarInsertEmpHisTra(fechai, sal, cargo, dep, numEmp);
+                    if(!(cargo.equals("HORNERO"))){
+                        cn.ejecutarInsertEmp(numEmp, nom1, ape1, ape2, fechaN, tsangre, genero, civil, estudios, nom2);
+                        cn.ejecutarInsertEmpTlf(cod, num, numEmp);
+                        cn.ejecutarInsertEmpHisTra(fechai, sal, cargo, dep, numEmp);
+                    }else{
+                        cn.ejecutarInsertEmp(numEmp, nom1, ape1, ape2, fechaN, tsangre, genero, civil, estudios, nom2);
+                        cn.ejecutarInsertEmpTlf(cod, num, numEmp);
+                        cn.ejecutarInsertEmpHisTra(fechai, sal, cargo, dep, numEmp);
+                        cn.ejecutarInsertEmpHisTur(fechai, turno, numEmp);
+                        System.out.println("es HORNERO");
+                    }
 
                 } catch (SQLException ex) {
                     Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
@@ -1667,6 +1711,24 @@ public class VentanaPrincipal extends javax.swing.JFrame {
        
             txtNumExp.setText(empleado);
             
+            try {
+                
+                ResultSet result= cn.ejecutarSelectEmp(empBuscar);
+                
+                while(result.next()){
+                    txtNombre1.setText(result.getString("PRI_NOMBRE")); 
+                    txtNombre2.setText(result.getString("SEG_NOMBRE"));
+                    txtApellido1.setText(result.getString("PRI_APELLIDO")); 
+                    txtApellido2.setText(result.getString("SEG_APELLIDO")); 
+                    txtTlf1.setText(result.getString("NUMERO")); 
+                    txtSalario.setText(result.getString("SALARIO")); 
+                }
+                
+                deshabilitarCampEmp();
+                
+            } catch (SQLException ex) {
+                Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }else{
             System.out.println(empleado);
         }
@@ -1704,21 +1766,53 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 (cmbEstudios.getSelectedItem().toString().equals("--")) && (cmbCargo.getSelectedItem().toString().equals("--")) && 
                 (txtSalario.getText().equals("--")))) {
                 //Agrego los campos necesarios
-
-                JOptionPane.showMessageDialog(null, "Empleado modificado con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-                limpiarCamposEmp();
-                ocultarCampObligEmp();
-    /*
+                
+                String nom1= txtNombre1.getText().toUpperCase();
+                String ape1= txtApellido1.getText().toUpperCase();
+                String nom2= txtNombre2.getText().toUpperCase();
+                String ape2= txtApellido2.getText().toUpperCase();
+                String dia= cmbDiaFec.getSelectedItem().toString();
+                String mes= asigMes(cmbMesFec.getSelectedItem().toString());
+                String anio= cmbAnioFec.getSelectedItem().toString();
+                String fechai= dia+'/'+mes+'/'+anio;
+                String diaN= cmbDiaFec.getSelectedItem().toString();
+                String mesN= asigMes(cmbMesFec.getSelectedItem().toString());
+                String anioN= cmbAnioFec.getSelectedItem().toString();
+                String fechaN= diaN+'/'+mesN+'/'+anioN;
+                String tsangre= cmbTsangre.getSelectedItem().toString();
+                String genero= cmbGenero.getSelectedItem().toString().toUpperCase();
+                String civil= cmbEdoCivil.getSelectedItem().toString().toUpperCase();
+                String estudios= cmbEstudios.getSelectedItem().toString().toUpperCase();
+                String dep= cmbDepartamento.getSelectedItem().toString().toUpperCase();
+                String cargo = cmbCargo.getSelectedItem().toString().toUpperCase();
+                String turno= cmbTurno.getSelectedItem().toString();
+                String cod = cmbCodTlf.getSelectedItem().toString();
+                String num = txtTlf1.getText();
+                double sal = Double.parseDouble(txtSalario.getText());
+                System.out.println(nom1+' '+ nom2+' '+ape1+' '+ape2);
+                System.out.println(fechai+' '+ fechaN+' '+ dep+' '+sal);
+                System.out.println(tsangre+' '+ genero+' '+civil+' '+estudios);
+                System.out.println(cod+ ' '+ num);
+                
                 try {
-                    ResultSet result = cn.ejecutarInsert(textAlias.getText().toUpperCase(), textNombre.getText().toUpperCase(), jTextField3.getText().toUpperCase());
-
-                    while (result.next()) {
-
+                    if(!(cargo.equals("HORNERO"))){
+                        cn.ejecutarUpdateEmp(numEmp, nom1, ape1, ape2, fechaN, tsangre, genero, civil, estudios, nom2);
+                        cn.ejecutarUpdateEmpTlf(cod, num, numEmp);
+                        cn.ejecutarUpdateEmpHisTra(fechai, sal, cargo, dep, numEmp);
+                    }else{
+                        cn.ejecutarUpdateEmp(numEmp, nom1, ape1, ape2, fechaN, tsangre, genero, civil, estudios, nom2);
+                        cn.ejecutarUpdateEmpTlf(cod, num, numEmp);
+                        cn.ejecutarUpdateEmpHisTra(fechai, sal, cargo, dep, numEmp);
+                        cn.ejecutarUpdateEmpHisTur(fechai, turno, numEmp);
                     }
+
                 } catch (SQLException ex) {
                     Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
                 }
-    */         
+                      
+                JOptionPane.showMessageDialog(null, "Empleado modificado con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                limpiarCamposEmp();
+                ocultarCampObligEmp();
         }
     }//GEN-LAST:event_btnModificarEmpActionPerformed
 
@@ -1752,7 +1846,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
                 ResultSet result = cn.ejecutarSelectEmpleados();
 
-                insertTable(result);
+                insertTableLista(result);
 
             } catch (SQLException ex) {
                 Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);

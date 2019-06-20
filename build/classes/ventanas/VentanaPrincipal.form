@@ -566,7 +566,7 @@
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="410" y="20" width="-1" height="-1"/>
+                  <AbsoluteConstraints x="410" y="20" width="50" height="-1"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -909,17 +909,23 @@
                 <Component class="javax.swing.JTable" name="tblEmpleados">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="6" rowCount="8">
+                      <Table columnCount="7" rowCount="8">
                         <Column editable="false" title="Primer Nombre" type="java.lang.Object"/>
                         <Column editable="false" title="Primer Apellido" type="java.lang.Object"/>
                         <Column editable="false" title="Segundo Apellido" type="java.lang.Object"/>
                         <Column editable="false" title="Fecha Ingreso" type="java.lang.Object"/>
                         <Column editable="false" title="Departamento" type="java.lang.Object"/>
                         <Column editable="false" title="Cargo" type="java.lang.Object"/>
+                        <Column editable="false" title="Genero" type="java.lang.Object"/>
                       </Table>
                     </Property>
                     <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                       <TableColumnModel selectionModel="0">
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
                         <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                           <Title/>
                           <Editor/>
@@ -988,7 +994,7 @@
             <Component class="javax.swing.JComboBox" name="cmbDepartamento">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="17">
+                  <StringArray count="16">
                     <StringItem index="0" value="--"/>
                     <StringItem index="1" value="Gerencia Gral."/>
                     <StringItem index="2" value="Gerencia Pta."/>
@@ -1005,7 +1011,6 @@
                     <StringItem index="13" value="Rotomoldeo"/>
                     <StringItem index="14" value="Prep. Pasta"/>
                     <StringItem index="15" value="Hornos"/>
-                    <StringItem index="16" value=" "/>
                   </StringArray>
                 </Property>
               </Properties>

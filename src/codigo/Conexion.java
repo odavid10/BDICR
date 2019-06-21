@@ -4,7 +4,6 @@ import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
 /**
  *
  * @author Omar David
@@ -227,6 +226,38 @@ public class Conexion {
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+    }
+    
+    public ResultSet ejecutarInsertCondMed(String nombre, String tipo, String descrip) throws SQLException{
+        
+        ResultSet result = null;
+        
+        try {
+            Statement st = conexion.createStatement();
+            String sql;
+            sql = "INSERT INTO CONDICION_MED (NOMBRE, TIPO, DESCRIPCION) VALUES ('"+nombre+"', '"+tipo+"', '"+descrip+"');";
+            result = st.executeQuery(sql);
+        } catch (SQLException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return result; 
+    }
+    //REVISAR SI FUNCIONAnomDet
+    public ResultSet ejecutarInsertEmp_Cond(int detEmp, String nomDet) throws SQLException{
+        
+        ResultSet result = null;
+        
+        try {
+            java.sql.Statement st = conexion.createStatement();
+            String sql;
+            sql = "INSERT INTO EMP_COND_MED VALUES ("+detEmp+", (SELECT ID FROM CONDICION_MED WHERE NOMBRE= '"+nomDet+"'));";
+            result = st.executeQuery(sql);
+        } catch (SQLException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return result; 
     }
     
 }

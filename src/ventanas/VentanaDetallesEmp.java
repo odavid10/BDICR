@@ -1,5 +1,9 @@
 package ventanas;
 
+import codigo.Conexion;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -9,6 +13,14 @@ import javax.swing.JOptionPane;
 public class VentanaDetallesEmp extends javax.swing.JFrame {
 
     public int anios[] = new int[80];
+    public static Conexion cn = new Conexion();
+    public static int numEmp = 0;
+    public static String nombre= "";
+    public static String diaN= "";
+    public static String mesN= "";
+    public static String anioN= "";
+    public static String fechaN= "";
+    public static String descrip = "";
     
     public VentanaDetallesEmp() {
         initComponents();
@@ -51,7 +63,10 @@ public class VentanaDetallesEmp extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         txtNumEmp = new javax.swing.JTextField();
         lblOblig105 = new javax.swing.JLabel();
-        btnGuardarDetalle1 = new javax.swing.JButton();
+        btnGuardarDetalle = new javax.swing.JButton();
+        lblOblig106 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        txtNombre = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -124,20 +139,20 @@ public class VentanaDetallesEmp extends javax.swing.JFrame {
         lblOblig103.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblOblig103.setForeground(new java.awt.Color(255, 0, 0));
         lblOblig103.setText("*");
-        jPanel1.add(lblOblig103, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 220, 20, -1));
+        jPanel1.add(lblOblig103, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 225, 20, -1));
 
         jLabel3.setText("Horas Extra");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, -1, -1));
-        jPanel1.add(txtHorasExt, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 220, 80, -1));
-        jPanel1.add(txtTempRetraso, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 170, 80, -1));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 225, -1, -1));
+        jPanel1.add(txtHorasExt, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 225, 80, -1));
+        jPanel1.add(txtTempRetraso, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 190, 80, -1));
 
         jLabel1.setText("Tiempo de Retraso");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 170, -1, -1));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 190, -1, -1));
 
         lblOblig102.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblOblig102.setForeground(new java.awt.Color(255, 0, 0));
         lblOblig102.setText("*");
-        jPanel1.add(lblOblig102, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 170, 20, -1));
+        jPanel1.add(lblOblig102, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 190, 20, -1));
 
         lblOblig101.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblOblig101.setForeground(new java.awt.Color(255, 0, 0));
@@ -164,14 +179,23 @@ public class VentanaDetallesEmp extends javax.swing.JFrame {
         lblOblig105.setText("*");
         jPanel1.add(lblOblig105, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, 20, -1));
 
-        btnGuardarDetalle1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/diskette.png"))); // NOI18N
-        btnGuardarDetalle1.setText("Guardar");
-        btnGuardarDetalle1.addActionListener(new java.awt.event.ActionListener() {
+        btnGuardarDetalle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/diskette.png"))); // NOI18N
+        btnGuardarDetalle.setText("Guardar");
+        btnGuardarDetalle.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarDetalle1ActionPerformed(evt);
+                btnGuardarDetalleActionPerformed(evt);
             }
         });
-        jPanel1.add(btnGuardarDetalle1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 460, -1, 44));
+        jPanel1.add(btnGuardarDetalle, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 460, -1, 44));
+
+        lblOblig106.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblOblig106.setForeground(new java.awt.Color(255, 0, 0));
+        lblOblig106.setText("*");
+        jPanel1.add(lblOblig106, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, 20, -1));
+
+        jLabel7.setText("Nombre");
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 160, -1, -1));
+        jPanel1.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 160, 80, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 440, 530));
 
@@ -185,6 +209,7 @@ public class VentanaDetallesEmp extends javax.swing.JFrame {
         lblOblig103.setVisible(false);
         lblOblig104.setVisible(false);
         lblOblig105.setVisible(false);       
+        lblOblig106.setVisible(false);
     }
     
     private void mostrarCampObligSeleccion(){
@@ -204,17 +229,19 @@ public class VentanaDetallesEmp extends javax.swing.JFrame {
         txtMonto.setText(null);
         areaDescrip.setText(null);
         txtNumEmp.setText(null);
+        txtNombre.setText(null);
     }
 
     private void inicializar(){
         ocultarCampObligDetalles();
+        txtNombre.setEnabled(false);
         txtTempRetraso.setEnabled(false);
         txtHorasExt.setEnabled(false);
         txtMonto.setEnabled(false);
         rbtnMes.setEnabled(false);
         rbtnAnio.setEnabled(false);
         areaDescrip.setEnabled(false);
-        btnGuardarDetalle1.setEnabled(false);
+        btnGuardarDetalle.setEnabled(false);
         llenarcmbAnios();
     }
     
@@ -223,7 +250,53 @@ public class VentanaDetallesEmp extends javax.swing.JFrame {
         for (int i = 1940; i < 2020; i++) {
             cmbAnioDetalle.addItem(i);
         }
-    }    
+    }
+    
+    private String asigMes(String mes){
+        
+        String mesAsignado="";
+        
+        switch(mes){
+            case "Enero":mesAsignado="1";
+                break;
+            case "Febrero":mesAsignado="2";
+                break;
+            case "Marzo":mesAsignado="3";
+                break;
+            case "Abril":mesAsignado="4";
+                break;
+            case "Mayo":mesAsignado="5";
+                break;
+            case "Junio":mesAsignado="6";
+                break;
+            case "Julio":mesAsignado="7";
+                break;
+            case "Agosto":mesAsignado="8";
+                break;
+            case "Semptiembre":mesAsignado="9";
+                break;
+            case "Octubre":mesAsignado="10";
+                break;
+            case "Noviembre":mesAsignado="11";
+                break;
+            case "Diciembre":mesAsignado="12";
+                break;
+        }
+        
+        return mesAsignado;
+    }
+    
+    private void captarDatos(){
+        @SuppressWarnings("LocalVariableHidesMemberVariable")
+        int numEmp = Integer.parseInt(txtNumEmp.getText());
+        String nombre2= txtNombre.getText().toUpperCase();
+        String dia= cmbDiaDetalle.getSelectedItem().toString();
+        String mes= asigMes(cmbMesDetalle.getSelectedItem().toString());
+        String anio= cmbAnioDetalle.getSelectedItem().toString();
+        String fecha= dia+'/'+mes+'/'+anio;
+        String descrip2 = areaDescrip.getText().toUpperCase();
+        System.out.println(numEmp+' '+nombre2+' '+fecha+' '+descrip2);
+    }
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         
@@ -247,19 +320,19 @@ public class VentanaDetallesEmp extends javax.swing.JFrame {
             mostrarCampObligSeleccion();
         }else{
             switch (motivo){
-                case "Retraso": txtTempRetraso.setEnabled(true);areaDescrip.setEnabled(true);btnGuardarDetalle1.setEnabled(true);
+                case "Retraso": txtTempRetraso.setEnabled(true);areaDescrip.setEnabled(true);btnGuardarDetalle.setEnabled(true);
                     break;
 
-                case "Horas extras": txtHorasExt.setEnabled(true);areaDescrip.setEnabled(true);btnGuardarDetalle1.setEnabled(true);
+                case "Horas extras": txtHorasExt.setEnabled(true);areaDescrip.setEnabled(true);btnGuardarDetalle.setEnabled(true);
                     break;
 
-                case "Bono de mes": txtMonto.setEnabled(true); rbtnMes.setSelected(true);rbtnMes.setEnabled(true);areaDescrip.setEnabled(true);btnGuardarDetalle1.setEnabled(true);
+                case "Bono de mes": txtMonto.setEnabled(true); rbtnMes.setSelected(true);rbtnMes.setEnabled(true);areaDescrip.setEnabled(true);btnGuardarDetalle.setEnabled(true);
                     break;
 
-                case "Bono anual": txtMonto.setEnabled(true); rbtnAnio.setSelected(true);rbtnAnio.setEnabled(true);areaDescrip.setEnabled(true);btnGuardarDetalle1.setEnabled(true);
+                case "Bono anual": txtMonto.setEnabled(true); rbtnAnio.setSelected(true);rbtnAnio.setEnabled(true);areaDescrip.setEnabled(true);btnGuardarDetalle.setEnabled(true);
                     break;
 
-                default: areaDescrip.setEnabled(true);btnGuardarDetalle1.setEnabled(true);
+                default: txtNombre.setEnabled(true);areaDescrip.setEnabled(true);btnGuardarDetalle.setEnabled(true);
                     break;
             }
         }
@@ -272,19 +345,20 @@ public class VentanaDetallesEmp extends javax.swing.JFrame {
         inicializar();
     }//GEN-LAST:event_btnCancelarDetalleActionPerformed
 
-    private void btnGuardarDetalle1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarDetalle1ActionPerformed
+    private void btnGuardarDetalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarDetalleActionPerformed
         
         String motivo = cmbMotivo.getSelectedItem().toString();
         
         switch (motivo){
-            case "Retraso": limpiarCamposDetalles();
-                            ocultarCampObligDetalles();
-                            inicializar();
+            case "Retraso": captarDatos();
+                limpiarCamposDetalles();
+                ocultarCampObligDetalles();
+                inicializar();
                 break;
 
             case "Horas extras": limpiarCamposDetalles();
-                                ocultarCampObligDetalles();
-                                inicializar();
+                ocultarCampObligDetalles();
+                inicializar();
                 break;
 
             case "Bono de mes": limpiarCamposDetalles();
@@ -297,13 +371,21 @@ public class VentanaDetallesEmp extends javax.swing.JFrame {
                                 inicializar();
                 break;
 
-            default: limpiarCamposDetalles();
-                    ocultarCampObligDetalles();
-                    inicializar();
+            default: captarDatos();
+                {
+                    try {
+                        cn.ejecutarInsertCondMed(nombre, motivo, descrip);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(VentanaDetallesEmp.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                limpiarCamposDetalles();
+                ocultarCampObligDetalles();
+                inicializar();
                 break;
         }
         
-    }//GEN-LAST:event_btnGuardarDetalle1ActionPerformed
+    }//GEN-LAST:event_btnGuardarDetalleActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -341,7 +423,7 @@ public class VentanaDetallesEmp extends javax.swing.JFrame {
     private javax.swing.JTextArea areaDescrip;
     private javax.swing.JButton btnCancelarDetalle;
     private javax.swing.ButtonGroup btnGrpMesAnio;
-    private javax.swing.JButton btnGuardarDetalle1;
+    private javax.swing.JButton btnGuardarDetalle;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JButton btnSelect;
     private javax.swing.JComboBox cmbAnioDetalle;
@@ -355,6 +437,7 @@ public class VentanaDetallesEmp extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblOblig100;
@@ -363,10 +446,12 @@ public class VentanaDetallesEmp extends javax.swing.JFrame {
     private javax.swing.JLabel lblOblig103;
     private javax.swing.JLabel lblOblig104;
     private javax.swing.JLabel lblOblig105;
+    private javax.swing.JLabel lblOblig106;
     private javax.swing.JRadioButton rbtnAnio;
     private javax.swing.JRadioButton rbtnMes;
     private javax.swing.JTextField txtHorasExt;
     private javax.swing.JTextField txtMonto;
+    private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtNumEmp;
     private javax.swing.JTextField txtTempRetraso;
     // End of variables declaration//GEN-END:variables

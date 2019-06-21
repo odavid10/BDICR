@@ -276,4 +276,20 @@ public class Conexion {
         return result; 
     }
     
+    public int ejecutarInsertDetalleBonoA(String fechaDet, int numEmpDet, String motivo, Double monDet, String desDet) throws SQLException{
+        
+        int result = 0;
+        
+        try {
+            java.sql.Statement st = conexion.createStatement();
+            String sql;
+            sql = "INSERT INTO DETALLE_EXP (FECHA_DET, ID_EMP, MOTIVO, MONTOBONO, DESCRIPCION) VALUES ('"+fechaDet+"', "+numEmpDet+", '"+motivo+"', "+monDet+", '"+desDet+"');";
+            result = st.executeUpdate(sql);
+        } catch (SQLException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return result; 
+    }
+    
 }

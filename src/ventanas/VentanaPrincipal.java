@@ -2322,7 +2322,15 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             inicializarDetalles();
             break;
 
-            case "Bono anual": limpiarCamposDetalles();
+            case "Bono anual": captarDatos();
+            {
+                try {
+                    cn.ejecutarInsertDetalleBonoA(fechaDetalle, numEmpDetalle, motivo.toUpperCase(), montoDetalle, descripDetalle);
+                } catch (SQLException ex) {
+                    Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            limpiarCamposDetalles();
             ocultarCampObligDetalles();
             inicializarDetalles();
             break;

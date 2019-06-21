@@ -23,6 +23,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     public static String anioDetalle= "";
     public static String fechaDetalle= "";
     public static String descripDetalle = "";
+    public static Double montoDetalle=0.0;
     
     @SuppressWarnings("OverridableMethodCallInConstructor")
     public VentanaPrincipal() {
@@ -1744,6 +1745,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         anioDetalle= cmbAnioDetalle.getSelectedItem().toString();
         fechaDetalle= diaDetalle+'/'+mesDetalle+'/'+anioDetalle;
         descripDetalle = areaDescrip.getText().toUpperCase();
+        montoDetalle= Double.parseDouble(txtMonto.getText());
         System.out.println("id: "+numEmpDetalle+" alergia:"+nombreDet+" "+fechaDetalle+" "+descripDetalle);
     }
     
@@ -2307,7 +2309,15 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             inicializarDetalles();
             break;
 
-            case "Bono de mes": limpiarCamposDetalles();
+            case "Bono de mes": captarDatos();
+            {
+                try {
+                    cn.ejecutarInsertDetalleBonoM(fechaDetalle, numEmpDetalle, motivo.toUpperCase(), montoDetalle, descripDetalle);
+                } catch (SQLException ex) {
+                    Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            limpiarCamposDetalles();
             ocultarCampObligDetalles();
             inicializarDetalles();
             break;

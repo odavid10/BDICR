@@ -1745,7 +1745,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         anioDetalle= cmbAnioDetalle.getSelectedItem().toString();
         fechaDetalle= diaDetalle+'/'+mesDetalle+'/'+anioDetalle;
         descripDetalle = areaDescrip.getText().toUpperCase();
-        montoDetalle= Double.parseDouble(txtMonto.getText());
+        if(!(txtMonto.getText().equals(""))){
+            montoDetalle= Double.parseDouble(txtMonto.getText());
+        }
         System.out.println("id: "+numEmpDetalle+" alergia:"+nombreDet+" "+fechaDetalle+" "+descripDetalle);
     }
     
@@ -2279,6 +2281,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
                 case "Bono anual": txtMonto.setEnabled(true); rbtnAnio.setSelected(true);rbtnAnio.setEnabled(true);areaDescrip.setEnabled(true);btnGuardarDetalle.setEnabled(true);
                 break;
+                    
+                case "Inasistencia": areaDescrip.setEnabled(true);btnGuardarDetalle.setEnabled(true);
+                break;
+
+                case "Amonestación": areaDescrip.setEnabled(true);btnGuardarDetalle.setEnabled(true);
+                break;
 
                 default: txtNombre.setEnabled(true);areaDescrip.setEnabled(true);btnGuardarDetalle.setEnabled(true);
                 break;
@@ -2335,12 +2343,28 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             inicializarDetalles();
             break;
             
-            case "Inasistencia": limpiarCamposDetalles();
+            case "Inasistencia": captarDatos();
+            {
+                try {
+                    cn.ejecutarInsertDetalleIna(fechaDetalle, numEmpDetalle, motivo.toUpperCase(), descripDetalle);
+                } catch (SQLException ex) {
+                    Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            limpiarCamposDetalles();
             ocultarCampObligDetalles();
             inicializarDetalles();
             break;
 
-            case "Amonestación": limpiarCamposDetalles();
+            case "Amonestación": captarDatos();
+            {
+                try {
+                    cn.ejecutarInsertDetalleAmo(fechaDetalle, numEmpDetalle, motivo.toUpperCase(), descripDetalle);
+                } catch (SQLException ex) {
+                    Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            limpiarCamposDetalles();
             ocultarCampObligDetalles();
             inicializarDetalles();
             break;

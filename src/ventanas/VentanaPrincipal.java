@@ -3,9 +3,14 @@ package ventanas;
 import codigo.Conexion;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -163,7 +168,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         listReuniones = new javax.swing.JList();
         jPanel3 = new javax.swing.JPanel();
         jLabel47 = new javax.swing.JLabel();
-        cmbTipoPieza = new javax.swing.JComboBox<>();
+        cmbTipoPieza = new javax.swing.JComboBox<String>();
         lblOblig35 = new javax.swing.JLabel();
         lblOblig36 = new javax.swing.JLabel();
         jLabel48 = new javax.swing.JLabel();
@@ -175,14 +180,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jLabel51 = new javax.swing.JLabel();
         lblOblig40 = new javax.swing.JLabel();
         jLabel52 = new javax.swing.JLabel();
-        cmbTipoPlato = new javax.swing.JComboBox<>();
+        cmbTipoPlato = new javax.swing.JComboBox<String>();
         txtTipoPlato = new javax.swing.JTextField();
         txtTamanio = new javax.swing.JTextField();
-        cmbTipoTaza = new javax.swing.JComboBox<>();
+        cmbTipoTaza = new javax.swing.JComboBox<String>();
         txtTipoTaza = new javax.swing.JTextField();
-        cmbVolumen = new javax.swing.JComboBox<>();
+        cmbVolumen = new javax.swing.JComboBox<String>();
         txtVolumen = new javax.swing.JTextField();
-        cmbCantPersonas = new javax.swing.JComboBox<>();
+        cmbCantPersonas = new javax.swing.JComboBox<String>();
         txtCantPersonas = new javax.swing.JTextField();
         btnCancelarPieza = new javax.swing.JButton();
         btnBuscarPieza = new javax.swing.JButton();
@@ -268,13 +273,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         lblTotalPedido = new javax.swing.JLabel();
         jLabel53 = new javax.swing.JLabel();
         lblFechaEntrega = new javax.swing.JLabel();
-        cmbPiezaPedido = new javax.swing.JComboBox<>();
+        cmbPiezaPedido = new javax.swing.JComboBox<String>();
         jLabel54 = new javax.swing.JLabel();
         lblOblig42 = new javax.swing.JLabel();
         lblOblig43 = new javax.swing.JLabel();
         jLabel55 = new javax.swing.JLabel();
-        cmbCantPedido = new javax.swing.JComboBox<>();
-        cmbCantPedido1 = new javax.swing.JComboBox<>();
+        cmbCantPedido = new javax.swing.JComboBox<String>();
+        cmbCantPedido1 = new javax.swing.JComboBox<String>();
         jLabel56 = new javax.swing.JLabel();
         lblOblig44 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
@@ -605,7 +610,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jPanel8.add(jScrollPane7, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 310, 210, 120));
 
-        jLabel58.setText("Descrición");
+        jLabel58.setText("Descripción");
         jPanel8.add(jLabel58, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 310, -1, -1));
 
         lblOblig104.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -786,7 +791,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jLabel47.setText("Pieza");
         jPanel3.add(jLabel47, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, 40, 20));
 
-        cmbTipoPieza.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--", "Jarra", "Tetera", "Azucarero", "Cazuela", "Bandeja", "Plato", "Ensaladera", "Taza" }));
+        cmbTipoPieza.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--", "Jarra", "Tetera", "Azucarero", "Cazuela", "Bandeja", "Plato", "Ensaladera", "Taza" }));
         jPanel3.add(cmbTipoPieza, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 50, 110, -1));
 
         lblOblig35.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -834,20 +839,20 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jLabel52.setText("Cantidad de Personas");
         jPanel3.add(jLabel52, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 250, 140, 20));
 
-        cmbTipoPlato.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--", "Hondo", "Llano", "Postre", "Presentación", "Taza Moka", "Pasta" }));
+        cmbTipoPlato.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--", "Hondo", "Llano", "Postre", "Presentación", "Taza Moka", "Pasta" }));
         jPanel3.add(cmbTipoPlato, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 90, 90, -1));
         jPanel3.add(txtTipoPlato, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 90, 110, -1));
         jPanel3.add(txtTamanio, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 130, 110, -1));
 
-        cmbTipoTaza.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--", "Café Cp", "Café Sp", "Té Cp", "Té Sp", "Moka Cp", "Moka Sp" }));
+        cmbTipoTaza.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--", "Café Cp", "Café Sp", "Té Cp", "Té Sp", "Moka Cp", "Moka Sp" }));
         jPanel3.add(cmbTipoTaza, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 170, 90, -1));
         jPanel3.add(txtTipoTaza, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 170, 110, -1));
 
-        cmbVolumen.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--", "1", "1.5" }));
+        cmbVolumen.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--", "1", "1.5" }));
         jPanel3.add(cmbVolumen, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 210, 90, -1));
         jPanel3.add(txtVolumen, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 210, 110, -1));
 
-        cmbCantPersonas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--", "2", "6" }));
+        cmbCantPersonas.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--", "2", "6" }));
         jPanel3.add(cmbCantPersonas, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 250, 90, -1));
         jPanel3.add(txtCantPersonas, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 250, 110, -1));
 
@@ -1290,7 +1295,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jPanel5.add(jLabel53, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 65, 110, -1));
         jPanel5.add(lblFechaEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 65, 150, 20));
 
-        cmbPiezaPedido.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--" }));
+        cmbPiezaPedido.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--" }));
         jPanel5.add(cmbPiezaPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 220, 100, -1));
 
         jLabel54.setText("Pieza");
@@ -1309,10 +1314,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jLabel55.setText("Cantidad");
         jPanel5.add(jLabel55, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 220, 70, -1));
 
-        cmbCantPedido.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--" }));
+        cmbCantPedido.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--" }));
         jPanel5.add(cmbCantPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 220, 100, -1));
 
-        cmbCantPedido1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--" }));
+        cmbCantPedido1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--" }));
         jPanel5.add(cmbCantPedido1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 220, 100, -1));
 
         jLabel56.setText("Tipo");
@@ -2084,10 +2089,16 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             String anioR= cmbAnioReu.getSelectedItem().toString();
             String fechaR= diaR+'/'+mesR+'/'+anioR;
             int supervisor = Integer.parseInt(txtNumSupervisor.getText());
-            System.out.println(supervisor +' '+ fechaR);
+            String horaI= txtHoraI.getText();
+            String horaF= txtHoraF.getText();
+            String minuta= areaMinutas.getText().toUpperCase();
+            System.out.println(supervisor+" "+fechaR+" "+horaI+" "+horaF);
             
-            //http://javainutil.blogspot.com/2014/11/java-convertir-string-date.html
-            
+            try {
+                cn.ejecutarInsertReu(fechaR, horaI, horaF, supervisor, minuta);
+            } catch (SQLException ex) {
+                Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
             JOptionPane.showMessageDialog(null, "Reunión guardada con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
             limpiarCamposReu();
             ocultarCampObligReu();

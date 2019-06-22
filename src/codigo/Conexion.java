@@ -324,4 +324,20 @@ public class Conexion {
         return result; 
     }
     
+    //MODULU DE REUNIÓN
+    public int ejecutarInsertReu(String fechaReu, String horaI, String horaF, int supervisor, String obs) throws SQLException{
+        
+        int result = 0;
+        
+        try {
+            java.sql.Statement st = conexion.createStatement();
+            String sql;
+            sql = "INSERT INTO REUNION (FECHA_REU, HORAI, HORAF, ID_SUP, MINUTAS_OBS) VALUES ('"+fechaReu+"', '"+horaI+"', '"+horaF+"', "+supervisor+", '"+obs+"');";
+            result = st.executeUpdate(sql);
+        } catch (SQLException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return result; 
+    }
 }

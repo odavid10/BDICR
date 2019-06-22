@@ -3,14 +3,9 @@ package ventanas;
 import codigo.Conexion;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -27,6 +22,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     public static String mesDetalle= "";
     public static String anioDetalle= "";
     public static String fechaDetalle= "";
+    public static String tempRetasoDetalle= "";
+    public static String horaExtDetalle= "";
     public static String descripDetalle = "";
     public static Double montoDetalle=0.0;
     
@@ -1749,11 +1746,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         mesDetalle= asigMes(cmbMesDetalle.getSelectedItem().toString());
         anioDetalle= cmbAnioDetalle.getSelectedItem().toString();
         fechaDetalle= diaDetalle+'/'+mesDetalle+'/'+anioDetalle;
+        tempRetasoDetalle= txtTempRetraso.getText();
+        horaExtDetalle= txtHorasExt.getText();
         descripDetalle = areaDescrip.getText().toUpperCase();
         if(!(txtMonto.getText().equals(""))){
             montoDetalle= Double.parseDouble(txtMonto.getText());
         }
-        System.out.println("id: "+numEmpDetalle+" alergia:"+nombreDet+" "+fechaDetalle+" "+descripDetalle);
     }
     
     private String asigMes(String mes){
@@ -2117,13 +2115,19 @@ public class VentanaPrincipal extends javax.swing.JFrame {
           mostrarCampObligReu();
        }else{
            
-           int numSupervisor = Integer.parseInt(txtNumSupervisor.getText());
+           String supervisor= JOptionPane.showInputDialog("Indique el empleado que desea buscar");
+           int supervisorBuscar= Integer.parseInt(supervisor);
            String diaReu= cmbDiaReu.getSelectedItem().toString();
            String mesReu= cmbMesReu.getSelectedItem().toString();
            String anioReu= cmbAnioReu.getSelectedItem().toString();
            String fecha= diaReu+'/'+ mesReu+'/'+anioReu;
 
-           System.out.println("Se va a buscar la reunion del supervisor "+numSupervisor+" en el dia"+fecha); 
+           System.out.println("Se va a buscar la reunion del supervisor "+supervisorBuscar+" en el dia"+fecha);
+           try{
+               ResultSet result= cn.ejecutarSelectReu_List_Supervisor(supervisorBuscar);
+           } catch (SQLException ex) {
+                Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
        }
         
     }//GEN-LAST:event_btnBuscarReuActionPerformed
@@ -2318,6 +2322,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         switch (motivo){
             case "Retraso": captarDatos();
+            {
+                try {
+                    cn.ejecutarInsertDetalleRetra(fechaDetalle, numEmpDetalle, motivo.toUpperCase(), tempRetasoDetalle, descripDetalle);
+                } catch (SQLException ex) {
+                    Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
             limpiarCamposDetalles();
             ocultarCampObligDetalles();
             inicializarDetalles();

@@ -211,9 +211,9 @@ public class Conexion {
         return result;        
     }
     
-    public void ejecutarDeleteEmp(int numEmp) throws SQLException{
+    public int ejecutarDeleteEmp(int numEmp) throws SQLException{
 
-        ResultSet result = null;
+        int result = 0;
 
         try {
             java.sql.Statement st = conexion.createStatement();
@@ -221,11 +221,11 @@ public class Conexion {
             sql = "delete from telefono where id_emp = "+numEmp+";\n" +
                     "delete from Historico_trabajo where id_emp = "+numEmp+";\n" +
                     "delete from empleado where num_expediente = "+numEmp+";";
-            result = st.executeQuery(sql);
+            result = st.executeUpdate(sql);
         } catch (SQLException ex) {
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        return result;
     }
     
     public ResultSet ejecutarInsertCondMed(String nombre, String tipo, String descrip) throws SQLException{
@@ -324,6 +324,22 @@ public class Conexion {
         return result; 
     }
     
+    public int ejecutarInsertDetalleRetra(String fechaDet, int numEmpDet, String motivo, String retrasoDet, String desDet) throws SQLException{
+        
+        int result = 0;
+        
+        try {
+            java.sql.Statement st = conexion.createStatement();
+            String sql;
+            sql = "INSERT INTO DETALLE_EXP (FECHA_DET, ID_EMP, MOTIVO, RETRASOMINUTOS, DESCRIPCION) VALUES ('"+fechaDet+"', "+numEmpDet+", '"+motivo+"', '"+retrasoDet+"','"+desDet+"');";
+            result = st.executeUpdate(sql);
+        } catch (SQLException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return result; 
+    }
+    
     //MODULU DE REUNIÓN
     public int ejecutarInsertReu(String fechaReu, String horaI, String horaF, int supervisor, String obs) throws SQLException{
         
@@ -334,6 +350,22 @@ public class Conexion {
             String sql;
             sql = "INSERT INTO REUNION (FECHA_REU, HORAI, HORAF, ID_SUP, MINUTAS_OBS) VALUES ('"+fechaReu+"', '"+horaI+"', '"+horaF+"', "+supervisor+", '"+obs+"');";
             result = st.executeUpdate(sql);
+        } catch (SQLException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return result; 
+    }
+    
+    public ResultSet ejecutarSelectReu_List_Supervisor(int numSupervisor) throws SQLException{
+        
+        ResultSet result = null;
+        
+        try {
+            java.sql.Statement st = conexion.createStatement();
+            String sql;
+            sql = "SELECT FECHA_REU FROM REUNION R WHERE ID_SUP= "+numSupervisor+";";
+            result = st.executeQuery(sql);
         } catch (SQLException ex) {
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
         }

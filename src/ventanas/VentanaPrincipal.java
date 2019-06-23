@@ -108,7 +108,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jLabel57 = new javax.swing.JLabel();
         cmbDepartamento = new javax.swing.JComboBox();
         jPanel8 = new javax.swing.JPanel();
-        btnSelect = new javax.swing.JButton();
+        btnSeleccionar = new javax.swing.JButton();
         cmbMotivo = new javax.swing.JComboBox();
         cmbDiaDetalle = new javax.swing.JComboBox();
         cmbMesDetalle = new javax.swing.JComboBox();
@@ -572,13 +572,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jPanel8.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btnSelect.setText("Seleccionar");
-        btnSelect.addActionListener(new java.awt.event.ActionListener() {
+        btnSeleccionar.setText("Seleccionar");
+        btnSeleccionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSelectActionPerformed(evt);
+                btnSeleccionarActionPerformed(evt);
             }
         });
-        jPanel8.add(btnSelect, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 120, 110, 25));
+        jPanel8.add(btnSeleccionar, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 120, 110, 25));
 
         cmbMotivo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--", "Alergia", "Inasistencia", "Amonestación", "Bono de mes", "Bono anual", "Retraso", "Horas extras", "Otro" }));
         jPanel8.add(cmbMotivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 120, 130, -1));
@@ -1751,7 +1751,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         descripDetalle = areaDescrip.getText().toUpperCase();
         if(!(txtMonto.getText().equals(""))){
             montoDetalle= Double.parseDouble(txtMonto.getText());
-        }
+        }System.out.println(horaExtDetalle);
     }
     
     private String asigMes(String mes){
@@ -2272,7 +2272,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_cmbClientesActionPerformed
 
     //MODULO DETALLES
-    private void btnSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelectActionPerformed
+    private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
 
         String motivo = cmbMotivo.getSelectedItem().toString();
 
@@ -2308,7 +2308,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         }
 
-    }//GEN-LAST:event_btnSelectActionPerformed
+    }//GEN-LAST:event_btnSeleccionarActionPerformed
 
     private void btnCancelarDetalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarDetalleActionPerformed
         limpiarCamposDetalles();
@@ -2329,12 +2329,21 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                     Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
+            JOptionPane.showMessageDialog(null, "Detalle de expediente agregado con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
             limpiarCamposDetalles();
             ocultarCampObligDetalles();
             inicializarDetalles();
             break;
 
-            case "Horas extras": limpiarCamposDetalles();
+            case "Horas extras": captarDatos();
+            {
+                try {
+                    cn.ejecutarInsertDetalleHoraE(fechaDetalle, numEmpDetalle, motivo.toUpperCase(), horaExtDetalle, descripDetalle);
+                } catch (SQLException ex) {
+                    Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            limpiarCamposDetalles();
             ocultarCampObligDetalles();
             inicializarDetalles();
             break;
@@ -2347,6 +2356,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                     Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
+            JOptionPane.showMessageDialog(null, "Detalle de expediente agregado con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
             limpiarCamposDetalles();
             ocultarCampObligDetalles();
             inicializarDetalles();
@@ -2360,6 +2370,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                     Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
+            JOptionPane.showMessageDialog(null, "Detalle de expediente agregado con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
             limpiarCamposDetalles();
             ocultarCampObligDetalles();
             inicializarDetalles();
@@ -2373,6 +2384,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                     Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
+            JOptionPane.showMessageDialog(null, "Detalle de expediente agregado con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
             limpiarCamposDetalles();
             ocultarCampObligDetalles();
             inicializarDetalles();
@@ -2386,6 +2398,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                     Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
+            JOptionPane.showMessageDialog(null, "Detalle de expediente agregado con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
             limpiarCamposDetalles();
             ocultarCampObligDetalles();
             inicializarDetalles();
@@ -2400,6 +2413,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                     Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
+            JOptionPane.showMessageDialog(null, "Detalle de expediente agregado con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
             limpiarCamposDetalles();
             ocultarCampObligDetalles();
             inicializarDetalles();
@@ -2478,7 +2492,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnModificarClien;
     private javax.swing.JButton btnModificarEmp;
     private javax.swing.JButton btnModificarPieza;
-    private javax.swing.JButton btnSelect;
+    private javax.swing.JButton btnSeleccionar;
     private javax.swing.JComboBox cmbAnioContra;
     private javax.swing.JComboBox cmbAnioDetalle;
     private javax.swing.JComboBox cmbAnioFactura;

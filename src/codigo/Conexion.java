@@ -33,10 +33,10 @@ public class Conexion {
     }
     
     //MODULO DE EMPLEADOS
-    public ResultSet ejecutarInsertEmp(int num_expediente, String pri_nombre, String pri_apellido, String seg_apellido, String fecha_nac,
+    public int ejecutarInsertEmp(int num_expediente, String pri_nombre, String pri_apellido, String seg_apellido, String fecha_nac,
             String tipo_sangre, String genero, String edo_civil, String estudios, String seg_nombre) throws SQLException{
         
-        ResultSet result = null;
+        int result = 0;
         
         try {
             java.sql.Statement st = conexion.createStatement();
@@ -46,7 +46,7 @@ public class Conexion {
                     "	VALUES ("+num_expediente+", '"+pri_nombre+"', '"+pri_apellido+"', '"+seg_apellido+"', '"+fecha_nac+"',"
                     + " '"+tipo_sangre+"', '"+genero+"', '"+edo_civil+"',\n" +
                     "	'"+estudios+"', '"+seg_nombre+"');";
-            result = st.executeQuery(sql);
+            result = st.executeUpdate(sql);
         } catch (SQLException ex) {
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -54,15 +54,15 @@ public class Conexion {
         return result; 
     }
     
-    public ResultSet ejecutarInsertEmpTlf(String codigo, String numero, int num_expediente) throws SQLException{
+    public int ejecutarInsertEmpTlf(String codigo, String numero, int num_expediente) throws SQLException{
         
-        ResultSet result = null;
+        int result = 0;
         
         try {
             java.sql.Statement st = conexion.createStatement();
             String sql;
             sql = "INSERT INTO TELEFONO VALUES ("+codigo+", "+numero+", "+num_expediente+");";
-            result = st.executeQuery(sql);
+            result = st.executeUpdate(sql);
         } catch (SQLException ex) {
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -70,15 +70,15 @@ public class Conexion {
         return result; 
     }
     
-    public ResultSet ejecutarInsertEmpHisTra(String fechai, double salario, String cargo, String departamento, int num_expediente) throws SQLException{
+    public int ejecutarInsertEmpHisTra(String fechai, double salario, String cargo, String departamento, int num_expediente) throws SQLException{
         
-        ResultSet result = null;
+        int result = 0;
         
         try {
             java.sql.Statement st = conexion.createStatement();
             String sql;
             sql = "INSERT INTO HISTORICO_TRABAJO VALUES ('"+fechai+"', "+salario+", '"+cargo+"', (SELECT ID FROM ORGANIGRAMA WHERE NOMBRE = '"+departamento+"'),"+num_expediente+");";
-            result = st.executeQuery(sql);
+            result = st.executeUpdate(sql);
         } catch (SQLException ex) {
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -86,15 +86,15 @@ public class Conexion {
         return result; 
     }
     
-    public ResultSet ejecutarInsertEmpHisTur(String fechai, String turno, int num_expediente) throws SQLException{
+    public int ejecutarInsertEmpHisTur(String fechai, String turno, int num_expediente) throws SQLException{
         
-        ResultSet result = null;
+        int result = 0;
         
         try {
             java.sql.Statement st = conexion.createStatement();
             String sql;
             sql = "INSERT INTO HISTORICO_TURNOS VALUES ('"+fechai+"', '"+turno+"', '"+fechai+"', "+num_expediente+", (SELECT ID FROM ORGANIGRAMA WHERE NOMBRE = 'MANTENIMIENTO'));";
-            result = st.executeQuery(sql);
+            result = st.executeUpdate(sql);
         } catch (SQLException ex) {
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -228,15 +228,16 @@ public class Conexion {
         return result;
     }
     
-    public ResultSet ejecutarInsertCondMed(String nombre, String tipo, String descrip) throws SQLException{
+     //MODULO DETALLES
+    public int ejecutarInsertCondMed(String nombre, String tipo, String descrip) throws SQLException{
         
-        ResultSet result = null;
+        int result = 0;
         
         try {
             Statement st = conexion.createStatement();
             String sql;
             sql = "INSERT INTO CONDICION_MED (NOMBRE, TIPO, DESCRIPCION) VALUES ('"+nombre+"', '"+tipo+"', '"+descrip+"');";
-            result = st.executeQuery(sql);
+            result = st.executeUpdate(sql);
         } catch (SQLException ex) {
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -244,15 +245,15 @@ public class Conexion {
         return result; 
     }
     
-    public ResultSet ejecutarInsertEmp_Cond(int detEmp, String nomDet) throws SQLException{
+    public int ejecutarInsertEmp_Cond(int detEmp, String nomDet) throws SQLException{
         
-        ResultSet result = null;
+        int result = 0;
         
         try {
             java.sql.Statement st = conexion.createStatement();
             String sql;
             sql = "INSERT INTO EMP_COND_MED VALUES ("+detEmp+", (SELECT ID FROM CONDICION_MED WHERE NOMBRE= '"+nomDet+"'));";
-            result = st.executeQuery(sql);
+            result = st.executeUpdate(sql);
         } catch (SQLException ex) {
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -332,6 +333,22 @@ public class Conexion {
             java.sql.Statement st = conexion.createStatement();
             String sql;
             sql = "INSERT INTO DETALLE_EXP (FECHA_DET, ID_EMP, MOTIVO, RETRASOMINUTOS, DESCRIPCION) VALUES ('"+fechaDet+"', "+numEmpDet+", '"+motivo+"', '"+retrasoDet+"','"+desDet+"');";
+            result = st.executeUpdate(sql);
+        } catch (SQLException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return result; 
+    }
+    
+    public int ejecutarInsertDetalleHoraE(String fechaDet, int numEmpDet, String motivo, String horaExDet, String desDet) throws SQLException{
+        
+        int result = 0;
+        
+        try {
+            java.sql.Statement st = conexion.createStatement();
+            String sql;
+            sql = "INSERT INTO DETALLE_EXP (FECHA_DET, ID_EMP, MOTIVO, HORAS_EXT, DESCRIPCION) VALUES ('"+fechaDet+"', "+numEmpDet+", '"+motivo+"', '"+horaExDet+"','"+desDet+"');";
             result = st.executeUpdate(sql);
         } catch (SQLException ex) {
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);

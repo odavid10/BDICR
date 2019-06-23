@@ -389,4 +389,22 @@ public class Conexion {
         
         return result; 
     }
+    
+    public ResultSet ejecutarSelectReu(int numSupervisor, String fechaReu) throws SQLException{
+        
+        ResultSet result = null;
+        
+        try {
+            java.sql.Statement st = conexion.createStatement();
+            String sql;
+            sql = "SELECT FECHA_REU, HORAI, HORAF, MINUTAS_OBS\n" +
+                    "FROM REUNION\n" +
+                    "WHERE FECHA_REU='"+fechaReu+"' AND ID_SUP= "+numSupervisor+";";
+            result = st.executeQuery(sql);
+        } catch (SQLException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return result; 
+    }
 }

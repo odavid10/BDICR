@@ -3,8 +3,13 @@ package ventanas;
 import codigo.Conexion;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -26,6 +31,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     public static String horaExtDetalle= "";
     public static String descripDetalle = "";
     public static Double montoDetalle=0.0;
+    DefaultListModel modeloListaReu = new DefaultListModel();
     
     @SuppressWarnings("OverridableMethodCallInConstructor")
     public VentanaPrincipal() {
@@ -723,6 +729,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jLabel9.setText("Hora Inicio");
         jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, -1, -1));
+
+        txtHoraF.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtHoraFFocusLost(evt);
+            }
+        });
         jPanel2.add(txtHoraF, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 160, 100, -1));
         jPanel2.add(txtHoraI, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 120, 100, -1));
 
@@ -1451,6 +1463,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         cmbCodTlf3.setEnabled(false);
         txtTlf3.setEnabled(false);
         llenarcmbAnios();
+        listReuniones.setModel(modeloListaReu);
     }
     
     private void llenarcmbAnios(){
@@ -1853,7 +1866,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             ){
             
             //Faltan Campos Obligatorios
-            JOptionPane.showMessageDialog(null, "Ingrese todos los campops obligatorios", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Ingrese todos los campos obligatorios", "Error", JOptionPane.ERROR_MESSAGE);
             mostrarCampObligEmp();
  
         } else if (!((txtNombre1.getText().equals("")) || (txtNombre2.getText().equals("")) || 
@@ -2106,29 +2119,44 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void btnCancelarReuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarReuActionPerformed
         ocultarCampObligReu();
         limpiarCamposReu();
+        modeloListaReu.clear();
     }//GEN-LAST:event_btnCancelarReuActionPerformed
 
     private void btnBuscarReuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarReuActionPerformed
        
-       if(txtNumSupervisor.getText().equals("") || (cmbDiaReu.getSelectedIndex()==0) || (cmbMesReu.getSelectedIndex()==0) || (cmbAnioReu.getSelectedIndex()==0)){
-          JOptionPane.showMessageDialog(null, "Ingrese todos los campops obligatorios", "Error", JOptionPane.ERROR_MESSAGE);
-          mostrarCampObligReu();
-       }else{
-           
-           String supervisor= JOptionPane.showInputDialog("Indique el empleado que desea buscar");
-           int supervisorBuscar= Integer.parseInt(supervisor);
-           String diaReu= cmbDiaReu.getSelectedItem().toString();
-           String mesReu= cmbMesReu.getSelectedItem().toString();
-           String anioReu= cmbAnioReu.getSelectedItem().toString();
-           String fecha= diaReu+'/'+ mesReu+'/'+anioReu;
+        int supervisorBuscar= Integer.parseInt(txtNumSupervisor.getText());
+        
+        if((cmbDiaReu.getSelectedIndex()==0) && (cmbMesReu.getSelectedIndex()==0) && (cmbAnioReu.getSelectedIndex()==0)){
 
-           System.out.println("Se va a buscar la reunion del supervisor "+supervisorBuscar+" en el dia"+fecha);
-           try{
-               ResultSet result= cn.ejecutarSelectReu_List_Supervisor(supervisorBuscar);
-           } catch (SQLException ex) {
-                Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+                ResultSet result= cn.ejecutarSelectReu_List_Supervisor(supervisorBuscar);
+                
+                while (result.next()) {
+                    modeloListaReu.addElement(result.getString("FECHA_REU"));
+                }
+        
+            } catch (Exception e) {
             }
-       }
+        }else{
+
+            String diaReu= cmbDiaReu.getSelectedItem().toString();
+            String mesReu= asigMes(cmbMesReu.getSelectedItem().toString());
+            String anioReu= cmbAnioReu.getSelectedItem().toString();
+            String fecha= diaReu+'/'+ mesReu+'/'+anioReu;
+
+            try{
+                ResultSet result= cn.ejecutarSelectReu(supervisorBuscar, fecha);
+                
+                while (result.next()) {
+                    txtHoraI.setText(result.getString("HORAI"));
+                    txtHoraF.setText(result.getString("HORAF"));
+                    areaMinutas.setText(result.getString("MINUTAS_OBS"));
+                }
+                
+            } catch (SQLException ex) {
+                 Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+             }
+        }
         
     }//GEN-LAST:event_btnBuscarReuActionPerformed
 
@@ -2421,6 +2449,26 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_btnGuardarDetalleActionPerformed
+
+    private void txtHoraFFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtHoraFFocusLost
+        
+        String horaI= txtHoraI.getText();
+        String horaF= txtHoraF.getText();
+        DateFormat horaFormato= new SimpleDateFormat("HH:MM");
+        try {
+            Date horaInicio= horaFormato.parse(horaI);
+            Date horaFin= horaFormato.parse(horaF);
+            System.out.println(horaI+" "+horaF);
+            if(horaInicio.compareTo(horaFin)<0){
+                JOptionPane.showMessageDialog(null, "Hora de finalización de la reunión no puede ser menor a la hora de inicio.", "Error", JOptionPane.ERROR_MESSAGE);
+                txtHoraF.setText(null);
+            }
+            
+        } catch (ParseException ex) {
+            Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+                
+    }//GEN-LAST:event_txtHoraFFocusLost
 
        
     public static void main(String args[]) {

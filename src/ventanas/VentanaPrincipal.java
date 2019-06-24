@@ -2436,7 +2436,26 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGurardarContraActionPerformed
 
     private void btnEliminarContraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarContraActionPerformed
-        // TODO add your handling code here:
+        
+        String cliente= JOptionPane.showInputDialog("Indique el nombre y fecha del cliente que desea eliminar su contrato").toUpperCase();
+        String diaC= cmbDiaContra.getSelectedItem().toString();
+        String mesC= asigMes(cmbMesContra.getSelectedItem().toString());
+        String anioC= cmbAnioContra.getSelectedItem().toString();
+        String fechaC= diaC+'/'+mesC+'/'+anioC;
+        
+        if(cliente!= null){
+
+            try {
+                cn.ejecutarDeleteContra(fechaC, cliente);
+                JOptionPane.showMessageDialog(null, "Contrato eliminado con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                limpiarCamposContra();
+            } catch (SQLException ex) {
+                Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }catch(NullPointerException e){
+                System.out.println(cliente);
+            }
+        }
+        
     }//GEN-LAST:event_btnEliminarContraActionPerformed
 
     private void btnCancelarContraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarContraActionPerformed

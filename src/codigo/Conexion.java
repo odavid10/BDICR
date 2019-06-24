@@ -440,4 +440,20 @@ public class Conexion {
         
         return result; 
     }
+    
+    public ResultSet ejecutarSelectClie_List() throws SQLException{
+        
+        ResultSet result = null;
+        
+        try {
+            java.sql.Statement st = conexion.createStatement();
+            String sql;
+            sql = "SELECT NOMBRE FROM CLIENTE";
+            result = st.executeQuery(sql);
+        } catch (SQLException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return result; 
+    }
 }

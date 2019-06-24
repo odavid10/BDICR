@@ -32,6 +32,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     public static String descripDetalle = "";
     public static Double montoDetalle=0.0;
     DefaultListModel modeloListaReu = new DefaultListModel();
+    DefaultListModel modeloListaClie = new DefaultListModel();
     
     @SuppressWarnings("OverridableMethodCallInConstructor")
     public VentanaPrincipal() {
@@ -1471,6 +1472,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         listReuniones.setModel(modeloListaReu);
         txtRIF.setEnabled(false);
         deshabilitarCampContra();
+        listClientes.setModel(modeloListaClie);
     }
     
     private void llenarcmbAnios(){
@@ -2249,8 +2251,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             case "Venezuela": pais= "VEN"; break;
         }
         
-        System.out.println(nomCliente+" "+ pais+" "+ rif+" "+cod+" "+ num);
-        
         if(txtNomCliente.getText().equals("") || cmbPais.getSelectedIndex()== 0 || cmbCodTlf2.getSelectedIndex()== 0 || txtTlf2.getText().equals("")){
             JOptionPane.showMessageDialog(null, "Ingrese todos los campos obligatorios", "Error", JOptionPane.ERROR_MESSAGE);
             mostrarCampObligClie();
@@ -2289,7 +2289,16 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarClienActionPerformed
 
     private void btnListarClienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarClienActionPerformed
-        // TODO add your handling code here:
+        
+        try {
+                ResultSet result= cn.ejecutarSelectClie_List();
+                
+                while (result.next()) {
+                    modeloListaClie.addElement(result.getString("NOMBRE"));
+                }
+        
+        } catch (Exception e) {
+        }
     }//GEN-LAST:event_btnListarClienActionPerformed
 
     private void btnGenerarContraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarContraActionPerformed

@@ -541,4 +541,20 @@ public class Conexion {
         return result; 
     }
     
+     public int ejecutarInsertContra(String fechaContrato, Double descuento, String nombreCliente) throws SQLException{
+        
+        int result = 0;
+        
+        try {
+            java.sql.Statement st = conexion.createStatement();
+            String sql;
+            sql = "INSERT INTO CONTRATO (FECHA, DESCUENTO, ID_CLIENTE) VALUES ('"+fechaContrato+"', "+descuento+", (SELECT ID FROM CLIENTE WHERE NOMBRE= '"+nombreCliente+"'));";
+            result = st.executeUpdate(sql);
+        } catch (SQLException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return result; 
+    }
+    
 }

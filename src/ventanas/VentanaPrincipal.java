@@ -1016,12 +1016,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jPanel4.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, 670, 10));
 
         jLabel26.setText("Fecha de Contrato");
-        jPanel4.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 310, -1, -1));
+        jPanel4.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 315, -1, -1));
 
         lblOblig24.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblOblig24.setForeground(new java.awt.Color(255, 0, 0));
         lblOblig24.setText("*");
-        jPanel4.add(lblOblig24, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 310, 20, -1));
+        jPanel4.add(lblOblig24, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 315, 20, -1));
 
         cmbDiaContra.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
         jPanel4.add(cmbDiaContra, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 310, -1, -1));
@@ -1033,14 +1033,17 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jPanel4.add(cmbAnioContra, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 310, 70, -1));
 
         jLabel18.setText("Fecha de Caducidad");
-        jPanel4.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 360, -1, -1));
+        jPanel4.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 355, -1, -1));
 
         txtFecCaducidad.setEditable(false);
-        jPanel4.add(txtFecCaducidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 360, 150, -1));
+        jPanel4.add(txtFecCaducidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 355, 150, -1));
 
         jLabel20.setText("Duración");
         jPanel4.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 390, -1, -1));
-        jPanel4.add(lblDuracion, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 350, 60, 10));
+
+        lblDuracion.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblDuracion.setText("1 AÑO");
+        jPanel4.add(lblDuracion, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 390, 110, 20));
 
         jLabel22.setText("Descuento");
         jPanel4.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 420, -1, -1));
@@ -1473,6 +1476,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         txtRIF.setEnabled(false);
         deshabilitarCampContra();
         listClientes.setModel(modeloListaClie);
+        lblDuracion.setVisible(false);
     }
     
     private void llenarcmbAnios(){
@@ -1674,6 +1678,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         cmbMesContra.setSelectedIndex(0);
         cmbAnioContra.setSelectedIndex(0);
         txtDescuento.setText(null);
+        lblDuracion.setText(null);
+        txtFecCaducidad.setText(null);
     }
     
     private void deshabilitarCampContra(){
@@ -1901,6 +1907,19 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             case "VEN": dato= "Venezuela"; break;
         }
         return dato;
+    }
+    
+    private String calcularFechaCaducidad(String dia, String mes, String anio){
+        
+        String fechaProx= "";
+        int anioProx= Integer.parseInt(anio);
+        
+        anioProx = anioProx+1; System.out.println(anioProx);
+        
+        fechaProx= dia+'/'+mes+'/'+Integer.toString(anioProx);
+        
+        
+        return fechaProx;
     }
     
     //MÓDULO EMPLEADO
@@ -2388,7 +2407,32 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGenerarContraActionPerformed
 
     private void btnGurardarContraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGurardarContraActionPerformed
-        // TODO add your handling code here:
+        
+        if(cmbDiaContra.getSelectedIndex()== 0 || cmbMesContra.getSelectedIndex()== 0 || cmbAnioContra.getSelectedIndex()== 0 || txtDescuento.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Ingrese todos los campos obligatorios", "Error", JOptionPane.ERROR_MESSAGE);
+            mostrarCampObligContra();
+        }else{
+            String diaC= cmbDiaContra.getSelectedItem().toString();
+            String mesC= asigMes(cmbMesContra.getSelectedItem().toString());
+            String anioC= cmbAnioContra.getSelectedItem().toString();
+            String fechaC= diaC+'/'+mesC+'/'+anioC;
+            Double desc= Double.parseDouble(txtDescuento.getText());
+            String clienteC= txtNomCliente.getText();
+            String FechaCaducidad= calcularFechaCaducidad(diaC, mesC, anioC);
+
+            try {
+                cn.ejecutarInsertContra(fechaC, desc, clienteC);
+                JOptionPane.showMessageDialog(null, "Contrato creado con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                lblDuracion.setVisible(true);
+                txtFecCaducidad.setText(FechaCaducidad);
+                //limpiarCamposContra();
+                ocultarCampObligContra();
+            } catch (SQLException ex) {
+                Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        
     }//GEN-LAST:event_btnGurardarContraActionPerformed
 
     private void btnEliminarContraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarContraActionPerformed

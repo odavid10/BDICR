@@ -506,4 +506,39 @@ public class Conexion {
         
         return result; 
     }
+    
+    public int ejecutarUpdateClie(String nomCliente, String pais, String rif) throws SQLException{
+        
+        int result = 0;
+        
+        try {
+            java.sql.Statement st = conexion.createStatement();
+            String sql;
+            sql = "UPDATE CLIENTE SET PAIS= '"+pais+"', RIF= '"+rif+"'\n" +
+                    "WHERE NOMBRE= '"+nomCliente+"';";
+            result = st.executeUpdate(sql);
+        } catch (SQLException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return result; 
+    }
+    
+    public int ejecutarUpdateClieTlf(String codigo, String numero, String nomCliente) throws SQLException{
+        
+        int result = 0;
+        
+        try {
+            java.sql.Statement st = conexion.createStatement();
+            String sql;
+            sql = "UPDATE TELEFONO SET CODIGO= '"+codigo+"', NUMERO= '"+numero+"'\n" +
+                    "WHERE ID_CLI= (SELECT ID FROM CLIENTE WHERE NOMBRE = '"+nomCliente+"');";
+            result = st.executeUpdate(sql);
+        } catch (SQLException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return result; 
+    }
+    
 }

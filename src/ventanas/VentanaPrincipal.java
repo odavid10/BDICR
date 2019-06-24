@@ -1000,7 +1000,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 cmbPaisActionPerformed(evt);
             }
         });
-        jPanel4.add(cmbPais, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 80, 100, -1));
+        jPanel4.add(cmbPais, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 80, 140, -1));
 
         jLabel17.setText("Teléfono");
         jPanel4.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 180, -1, -1));
@@ -1903,16 +1903,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         return dato;
     }
     
-    private String acortarMes (String dato){
-        switch(dato){
-            case "Colombia": dato= "COL"; break;
-            case "Estados Unidos": dato= "USA"; break;
-            case "Rep. Dominicana": dato= "RPD"; break;
-            case "Venezuela": dato= "VEN"; break;
-        }
-        return dato;
-    }
-    
     //MÓDULO EMPLEADO
     private void btnAgregarEmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarEmpActionPerformed
         
@@ -2290,7 +2280,41 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAgregarClienActionPerformed
 
     private void btnModificarClienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarClienActionPerformed
-        // TODO add your handling code here:
+        
+        txtNomCliente.setEnabled(false);
+        String nomCliente= txtNomCliente.getText().toUpperCase();
+        String pais= cmbPais.getSelectedItem().toString();
+        String rif= "";
+        String cod = cmbCodTlf2.getSelectedItem().toString();
+        String num = txtTlf2.getText();
+        
+        if(pais.equals("Venezuela")){
+            rif= txtRIF.getText();
+        }
+        
+        switch(pais){
+            case "Colombia": pais= "COL"; break;
+            case "Estados Unidos": pais= "USA"; break;
+            case "Rep. Dominicana": pais= "RPD"; break;
+            case "Venezuela": pais= "VEN"; break;
+        }
+        
+        if(txtNomCliente.getText().equals("") || cmbPais.getSelectedIndex()== 0 || cmbCodTlf2.getSelectedIndex()== 0 || txtTlf2.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Ingrese todos los campos obligatorios", "Error", JOptionPane.ERROR_MESSAGE);
+            mostrarCampObligClie();
+        }else if(!(txtNomCliente.getText().equals("") || cmbPais.getSelectedIndex()== 0 || cmbCodTlf2.getSelectedIndex()== 0 || txtTlf2.getText().equals(""))){
+            try {
+                cn.ejecutarUpdateClieTlf(cod, num, nomCliente);
+                cn.ejecutarUpdateClie(nomCliente, pais, rif);
+                JOptionPane.showMessageDialog(null, "Cliente modifcado con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                txtRIF.setEnabled(false);
+                limpiarCamposClie();
+                ocultarCampObligClie();
+            } catch (SQLException ex) {
+                Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
     }//GEN-LAST:event_btnModificarClienActionPerformed
 
     private void btnBuscarClienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarClienActionPerformed
@@ -2633,7 +2657,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         
     }//GEN-LAST:event_cmbPaisActionPerformed
 
-       
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

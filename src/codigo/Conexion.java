@@ -441,6 +441,24 @@ public class Conexion {
         return result; 
     }
     
+    public ResultSet ejecutarSelectClie(String nomCliente) throws SQLException{
+        
+        ResultSet result = null;
+        
+        try {
+            java.sql.Statement st = conexion.createStatement();
+            String sql;
+            sql = "SELECT C.NOMBRE, C.PAIS, C.RIF, T.CODIGO, T.NUMERO\n" +
+                    "FROM CLIENTE C, TELEFONO T\n" +
+                    "WHERE C.ID=(SELECT ID FROM CLIENTE WHERE NOMBRE= '"+nomCliente+"') AND T.ID_CLI= (SELECT ID FROM CLIENTE WHERE NOMBRE= '"+nomCliente+"')";
+            result = st.executeQuery(sql);
+        } catch (SQLException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return result; 
+    }
+    
     public int ejecutarDeleteClie(String nomCliente) throws SQLException{
         
         int result = 0;

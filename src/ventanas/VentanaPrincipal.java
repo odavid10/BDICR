@@ -1695,8 +1695,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         btnEliminarContra.setEnabled(true);
         btnCancelarContra.setEnabled(true);
     }
-    
-    
+
     private void ocultarCampObligPedido(){
         lblOblig26.setVisible(false);
         lblOblig27.setVisible(false);
@@ -1892,6 +1891,26 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             registro[5] = result.getString("CARGO");
             modeloTabla.addRow(registro);
         }
+    }
+    
+    private String externderMes (String dato){
+        switch(dato){
+            case "COL": dato= "Colombia"; break;
+            case "USA": dato= "Estados Unidos"; break;
+            case "RPD": dato= "Rep. Dominicana"; break;
+            case "VEN": dato= "Venezuela"; break;
+        }
+        return dato;
+    }
+    
+    private String acortarMes (String dato){
+        switch(dato){
+            case "Colombia": dato= "COL"; break;
+            case "Estados Unidos": dato= "USA"; break;
+            case "Rep. Dominicana": dato= "RPD"; break;
+            case "Venezuela": dato= "VEN"; break;
+        }
+        return dato;
     }
     
     //MÓDULO EMPLEADO
@@ -2275,7 +2294,27 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnModificarClienActionPerformed
 
     private void btnBuscarClienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarClienActionPerformed
-        // TODO add your handling code here:
+        
+        String clienteBuscar= JOptionPane.showInputDialog("Indique el cliente que desea buscar").toUpperCase();
+        
+        try {
+            
+            ResultSet result= cn.ejecutarSelectClie(clienteBuscar);
+            
+            while (result.next()) {
+                txtNomCliente.setText(result.getString("NOMBRE"));
+                cmbPais.setSelectedItem(externderMes(result.getString("PAIS")));
+                txtRIF.setText(result.getString("RIF"));
+                cmbCodTlf2.setSelectedItem(result.getString("CODIGO"));
+                txtTlf2.setText(result.getString("NUMERO"));
+            }
+
+        } catch (NullPointerException e) {
+            JOptionPane.showMessageDialog(null, "No se encontro el cliente.", "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (SQLException ex) {
+            Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }//GEN-LAST:event_btnBuscarClienActionPerformed
 
     private void btnEliminarClienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarClienActionPerformed
@@ -2289,6 +2328,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 cn.ejecutarDeleteClie(cliente);
                 JOptionPane.showMessageDialog(null, "Cliente eliminado con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
                 modeloListaClie.clear();
+                limpiarCamposClie();
             } catch (SQLException ex) {
                 Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
             }

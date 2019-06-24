@@ -407,4 +407,37 @@ public class Conexion {
         
         return result; 
     }
+    
+    //MODULO CLIENTE
+    public int ejecutarInsertClie(String nomCliente, String pais, String rif) throws SQLException{
+        
+        int result = 0;
+        
+        try {
+            java.sql.Statement st = conexion.createStatement();
+            String sql;
+            sql = "INSERT INTO CLIENTE (NOMBRE, PAIS, RIF) VALUES ('"+nomCliente+"', '"+pais+"', '"+rif+"');";
+            result = st.executeUpdate(sql);
+        } catch (SQLException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return result; 
+    }
+    
+    public int ejecutarInsertClieTlf(String codigo, String numero, String nomCliente) throws SQLException{
+        
+        int result = 0;
+        
+        try {
+            java.sql.Statement st = conexion.createStatement();
+            String sql;
+            sql = "INSERT INTO TELEFONO (CODIGO, NUMERO, ID_CLI) VALUES ('"+codigo+"', '"+numero+"', (SELECT ID FROM CLIENTE WHERE NOMBRE= '"+nomCliente+"'));";
+            result = st.executeUpdate(sql);
+        } catch (SQLException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return result; 
+    }
 }

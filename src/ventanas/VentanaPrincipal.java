@@ -994,6 +994,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jPanel4.add(lblOblig22, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, 20, -1));
 
         cmbPais.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--", "Colombia", "Estados Unidos", "Rep. Dominicana", "Venezuela" }));
+        cmbPais.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbPaisActionPerformed(evt);
+            }
+        });
         jPanel4.add(cmbPais, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 80, 100, -1));
 
         jLabel17.setText("Teléfono");
@@ -1464,6 +1469,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         txtTlf3.setEnabled(false);
         llenarcmbAnios();
         listReuniones.setModel(modeloListaReu);
+        txtRIF.setEnabled(false);
+        deshabilitarCampContra();
     }
     
     private void llenarcmbAnios(){
@@ -1484,6 +1491,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         ocultarCampObligReu();
         ocultarCampObligPiezas();
         ocultarCampObligClie();
+        ocultarCampObligContra();
         ocultarCampObligPedido();
         ocultarCampObligFactura();
     }
@@ -1639,8 +1647,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         lblOblig21.setVisible(true);
         lblOblig22.setVisible(true);
         lblOblig23.setVisible(true);
-        lblOblig24.setVisible(true);
-        lblOblig25.setVisible(true);
     }
     
     private void limpiarCamposClie(){
@@ -1649,8 +1655,45 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         txtRIF.setText(null);
         cmbCodTlf2.setSelectedIndex(0);
         txtTlf2.setText(null);
+    }
+    
+    private void mostrarCampObligContra(){
+        lblOblig24.setVisible(true);
+        lblOblig25.setVisible(true);
+    }
+    
+     private void ocultarCampObligContra(){
+        lblOblig24.setVisible(false);
+        lblOblig25.setVisible(false);
+    }
+     
+    private void limpiarCamposContra(){
+        cmbDiaContra.setSelectedIndex(0);
+        cmbMesContra.setSelectedIndex(0);
+        cmbAnioContra.setSelectedIndex(0);
         txtDescuento.setText(null);
     }
+    
+    private void deshabilitarCampContra(){
+        cmbDiaContra.setEnabled(false);
+        cmbMesContra.setEnabled(false);
+        cmbAnioContra.setEnabled(false);
+        txtDescuento.setEditable(false);
+        btnGurardarContra.setEnabled(false);
+        btnEliminarContra.setEnabled(false);
+        btnCancelarContra.setEnabled(false);
+    }
+    
+    private void habilitarCampContra(){
+        cmbDiaContra.setEnabled(true);
+        cmbMesContra.setEnabled(true);
+        cmbAnioContra.setEnabled(true);
+        txtDescuento.setEditable(true);
+        btnGurardarContra.setEnabled(true);
+        btnEliminarContra.setEnabled(true);
+        btnCancelarContra.setEnabled(true);
+    }
+    
     
     private void ocultarCampObligPedido(){
         lblOblig26.setVisible(false);
@@ -2188,7 +2231,43 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     //MÓDULO CLIENTE
     private void btnAgregarClienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarClienActionPerformed
-        // TODO add your handling code here:
+        
+        String nomCliente= txtNomCliente.getText().toUpperCase();
+        String pais= cmbPais.getSelectedItem().toString();
+        String rif= "";
+        String cod = cmbCodTlf2.getSelectedItem().toString();
+        String num = txtTlf2.getText();
+        
+        if(pais.equals("Venezuela")){
+            rif= txtRIF.getText();
+        }
+        
+        switch(pais){
+            case "Colombia": pais= "COL"; break;
+            case "Estados Unidos": pais= "USA"; break;
+            case "Rep. Dominicana": pais= "RPD"; break;
+            case "Venezuela": pais= "VEN"; break;
+        }
+        
+        System.out.println(nomCliente+" "+ pais+" "+ rif+" "+cod+" "+ num);
+        
+        if(txtNomCliente.getText().equals("") || cmbPais.getSelectedIndex()== 0 || cmbCodTlf2.getSelectedIndex()== 0 || txtTlf2.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Ingrese todos los campos obligatorios", "Error", JOptionPane.ERROR_MESSAGE);
+            mostrarCampObligClie();
+        }else if(!(txtNomCliente.getText().equals("") || cmbPais.getSelectedIndex()== 0 || cmbCodTlf2.getSelectedIndex()== 0 || txtTlf2.getText().equals(""))){
+            try {
+                cn.ejecutarInsertClie(nomCliente, pais, rif);
+                cn.ejecutarInsertClieTlf(cod, num, nomCliente);
+                JOptionPane.showMessageDialog(null, "Cliente agregado con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                txtRIF.setEnabled(false);
+                limpiarCamposClie();
+                ocultarCampObligClie();
+            } catch (SQLException ex) {
+                Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        
     }//GEN-LAST:event_btnAgregarClienActionPerformed
 
     private void btnModificarClienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarClienActionPerformed
@@ -2206,6 +2285,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void btnCancelarClienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarClienActionPerformed
         ocultarCampObligClie();
         limpiarCamposClie();
+        txtRIF.setEnabled(false);
     }//GEN-LAST:event_btnCancelarClienActionPerformed
 
     private void btnListarClienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarClienActionPerformed
@@ -2213,7 +2293,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnListarClienActionPerformed
 
     private void btnGenerarContraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarContraActionPerformed
-        // TODO add your handling code here:
+        habilitarCampContra();
     }//GEN-LAST:event_btnGenerarContraActionPerformed
 
     private void btnGurardarContraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGurardarContraActionPerformed
@@ -2225,7 +2305,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEliminarContraActionPerformed
 
     private void btnCancelarContraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarContraActionPerformed
-        
+        limpiarCamposContra();
+        ocultarCampObligContra();
+        deshabilitarCampContra();
     }//GEN-LAST:event_btnCancelarContraActionPerformed
     
     //MÓDULO PEDIDO
@@ -2449,7 +2531,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_btnGuardarDetalleActionPerformed
-
+    
+//VALIDACIONES DE INTERFAZ
     private void txtHoraFFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtHoraFFocusLost
         
         String horaI= txtHoraI.getText();
@@ -2469,6 +2552,19 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
                 
     }//GEN-LAST:event_txtHoraFFocusLost
+
+    private void cmbPaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPaisActionPerformed
+        
+        String pais = cmbPais.getSelectedItem().toString();
+
+        if(pais.equals("Venezuela")){
+            txtRIF.setEnabled(true);
+        }else{
+            txtRIF.setText("");
+            txtRIF.setEnabled(false);
+        }
+        
+    }//GEN-LAST:event_cmbPaisActionPerformed
 
        
     public static void main(String args[]) {

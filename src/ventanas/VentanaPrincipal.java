@@ -2279,24 +2279,42 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBuscarClienActionPerformed
 
     private void btnEliminarClienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarClienActionPerformed
-        // TODO add your handling code here:
+        
+        String cliente= JOptionPane.showInputDialog("Indique el cliente que desea eliminar").toUpperCase();
+        
+        if(cliente!= null){
+
+            try {
+                cn.ejecutarDeleteClieTlf(cliente);
+                cn.ejecutarDeleteClie(cliente);
+                JOptionPane.showMessageDialog(null, "Cliente eliminado con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                modeloListaClie.clear();
+            } catch (SQLException ex) {
+                Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
     }//GEN-LAST:event_btnEliminarClienActionPerformed
 
     private void btnCancelarClienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarClienActionPerformed
         ocultarCampObligClie();
         limpiarCamposClie();
         txtRIF.setEnabled(false);
+        modeloListaClie.clear();
     }//GEN-LAST:event_btnCancelarClienActionPerformed
 
     private void btnListarClienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarClienActionPerformed
         
         try {
-                ResultSet result= cn.ejecutarSelectClie_List();
-                
-                while (result.next()) {
-                    modeloListaClie.addElement(result.getString("NOMBRE"));
-                }
-        
+            
+            ResultSet result= cn.ejecutarSelectClie_List();
+            
+            modeloListaClie.clear();
+            
+            while (result.next()) {
+                modeloListaClie.addElement(result.getString("NOMBRE"));
+            }
+
         } catch (Exception e) {
         }
     }//GEN-LAST:event_btnListarClienActionPerformed

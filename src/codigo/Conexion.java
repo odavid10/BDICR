@@ -441,6 +441,38 @@ public class Conexion {
         return result; 
     }
     
+    public int ejecutarDeleteClie(String nomCliente) throws SQLException{
+        
+        int result = 0;
+        
+        try {
+            java.sql.Statement st = conexion.createStatement();
+            String sql;
+            sql = "DELETE FROM CLIENTE WHERE NOMBRE= '"+nomCliente+"';";
+            result = st.executeUpdate(sql);
+        } catch (SQLException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return result; 
+    }
+    
+    public int ejecutarDeleteClieTlf(String nomCliente) throws SQLException{
+        
+        int result = 0;
+        
+        try {
+            java.sql.Statement st = conexion.createStatement();
+            String sql;
+            sql = "DELETE FROM TELEFONO WHERE ID_CLI= (SELECT ID FROM CLIENTE WHERE NOMBRE= '"+nomCliente+"');";
+            result = st.executeUpdate(sql);
+        } catch (SQLException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return result; 
+    }
+    
     public ResultSet ejecutarSelectClie_List() throws SQLException{
         
         ResultSet result = null;

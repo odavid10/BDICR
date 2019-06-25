@@ -32,6 +32,26 @@ public class Conexion {
         conexion.close();
     }
     
+    public ResultSet ejecutarNumEmp() throws SQLException{
+        
+        ResultSet result = null;
+        
+        try {
+            java.sql.Statement st = conexion.createStatement();
+            String sql;
+            sql = "SELECT COUNT(*) FROM EMPLEADO";
+            result = st.executeQuery(sql);
+            
+            while(result.next()){
+                System.out.println(result.getString("COUNT"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return result; 
+    }
+    
     //MODULO DE EMPLEADOS
     public int ejecutarInsertEmp(int num_expediente, String pri_nombre, String pri_apellido, String seg_apellido, String fecha_nac,
             String tipo_sangre, String genero, String edo_civil, String estudios, String seg_nombre) throws SQLException{
@@ -61,7 +81,7 @@ public class Conexion {
         try {
             java.sql.Statement st = conexion.createStatement();
             String sql;
-            sql = "INSERT INTO TELEFONO VALUES ("+codigo+", "+numero+", "+num_expediente+");";
+            sql = "INSERT INTO TELEFONO (CODIGO, NUMERO, ID_EMP) VALUES ("+codigo+", "+numero+", "+num_expediente+");";
             result = st.executeUpdate(sql);
         } catch (SQLException ex) {
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);

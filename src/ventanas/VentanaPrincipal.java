@@ -572,7 +572,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jLabel57.setText("Departamento");
         jPanel1.add(jLabel57, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, 90, -1));
 
-        cmbDepartamento.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--", "Gerencia Gral.", "Gerencia Pta.", "Secretaria", "Gerencia Téc.", "Ctr Calidad", "Mantenimiento", "Almc. Insumos", "Almc. Prod.", "Selección", "Decoración", "Refinado", "Yesería", "Rotomoldeo", "Prep. Pasta", "Hornos" }));
+        cmbDepartamento.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--", "Gerencia Gral.", "Gerencia Pta.", "Secretaría", "Gerencia Téc.", "Ctrl. Calidad", "Mantenimiento", "Almc. Insumos", "Almc. Prod.", "Selección", "Decoración", "Refinado", "Yesería", "Rotomoldeo", "Prep. Pasta", "Hornos" }));
         jPanel1.add(cmbDepartamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 230, 110, -1));
 
         jTabbedPane1.addTab("Empleado", jPanel1);
@@ -1922,6 +1922,31 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         return fechaProx;
     }
     
+    private String asigDep(String dep){
+        
+        String depAsignado="";
+        
+        switch(dep){
+            case "Gerencia Gral.":depAsignado="GERENCIA GENERAL";break;
+            case "Gerencia Pta.":depAsignado="GERENCIA DE PLANTA";break;
+            case "Secretaría":depAsignado="SECREATARIA";break;
+            case "Gerencia Téc.":depAsignado="GERENCIA TÉCNICA";break;
+            case "Ctrl. Calidad":depAsignado="SECCIÓN CONTROL DE CALIDAD";break;
+            case "Mantenimiento":depAsignado="SECCIÓN DE MANTENIMIENTO";break;
+            case "Almc. Insumos":depAsignado="ALMACÉN DE INSUMOS";break;
+            case "Almc. Prod.":depAsignado="ALMACÉN DE PRODUCTOS TERMINADO";break;
+            case "Selección":depAsignado="SELECCIÓN";break;
+            case "Decoración":depAsignado="ESMALTACIÓN Y DECORACIÓN";break;
+            case "Refinado":depAsignado="COLADO Y REFINADO";break;
+            case "Yesería":depAsignado="YESERÍA";break;
+            case "Rotomoldeo":depAsignado="ROTOMOLDEO";break;
+            case "Prep. Pasta":depAsignado="PREPARACIÓN Y PASTA";break;
+            case "Hornos":depAsignado="HORNOS";break;
+        }
+        
+        return depAsignado;
+    }
+    
     //MÓDULO EMPLEADO
     private void btnAgregarEmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarEmpActionPerformed
         
@@ -1972,7 +1997,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 String genero= cmbGenero.getSelectedItem().toString().toUpperCase();
                 String civil= cmbEdoCivil.getSelectedItem().toString().toUpperCase();
                 String estudios= cmbEstudios.getSelectedItem().toString().toUpperCase();
-                String dep= cmbDepartamento.getSelectedItem().toString().toUpperCase();
+                String dep= asigDep(cmbDepartamento.getSelectedItem().toString());
                 String cargo = cmbCargo.getSelectedItem().toString().toUpperCase();
                 String turno= cmbTurno.getSelectedItem().toString();
                 String cod = cmbCodTlf.getSelectedItem().toString();
@@ -2028,8 +2053,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                     txtNombre2.setText(result.getString("SEG_NOMBRE"));
                     txtApellido1.setText(result.getString("PRI_APELLIDO")); 
                     txtApellido2.setText(result.getString("SEG_APELLIDO")); 
+                    cmbTsangre.setSelectedItem(result.getString("TIPO_SANGRE"));
+                    cmbGenero.setSelectedItem(result.getString("GENERO"));
+                    cmbEdoCivil.setSelectedItem(result.getString("EDO_CIVIL"));
+                    cmbEstudios.setSelectedItem(result.getString("ESTUDIOS"));
+                    cmbCodTlf.setSelectedItem(result.getString("CODIGO"));
                     txtTlf1.setText(result.getString("NUMERO")); 
                     txtSalario.setText(result.getString("SALARIO")); 
+                    cmbCargo.setSelectedItem(result.getString("CARGO"));
                 }
                 
             } catch (SQLException ex) {
@@ -2151,13 +2182,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         
         try {
 
-                ResultSet result = cn.ejecutarSelectEmpleados();
+            ResultSet result = cn.ejecutarSelectEmpleados();
 
-                insertTableLista(result);
+            insertTableLista(result);
 
-            } catch (SQLException ex) {
-                Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        } catch (SQLException ex) {
+            Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
     }//GEN-LAST:event_btnListarEmpActionPerformed
 
@@ -2339,23 +2370,25 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void btnBuscarClienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarClienActionPerformed
         
         String clienteBuscar= JOptionPane.showInputDialog("Indique el cliente que desea buscar").toUpperCase();
-        
-        try {
+        if(clienteBuscar != null){
+            try {
             
-            ResultSet result= cn.ejecutarSelectClie(clienteBuscar);
-            
-            while (result.next()) {
-                txtNomCliente.setText(result.getString("NOMBRE"));
-                cmbPais.setSelectedItem(externderMes(result.getString("PAIS")));
-                txtRIF.setText(result.getString("RIF"));
-                cmbCodTlf2.setSelectedItem(result.getString("CODIGO"));
-                txtTlf2.setText(result.getString("NUMERO"));
-            }
+                ResultSet result= cn.ejecutarSelectClie(clienteBuscar);
 
-        } catch (NullPointerException e) {
+                while (result.next()) {
+                    txtNomCliente.setText(result.getString("NOMBRE"));
+                    cmbPais.setSelectedItem(externderMes(result.getString("PAIS")));
+                    txtRIF.setText(result.getString("RIF"));
+                    cmbCodTlf2.setSelectedItem(result.getString("CODIGO"));
+                    txtTlf2.setText(result.getString("NUMERO"));
+                }
+
+            }catch (SQLException ex) {
+                Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else{
+            
             JOptionPane.showMessageDialog(null, "No se encontro el cliente.", "Error", JOptionPane.ERROR_MESSAGE);
-        } catch (SQLException ex) {
-            Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }//GEN-LAST:event_btnBuscarClienActionPerformed

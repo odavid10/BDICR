@@ -647,6 +647,24 @@ public class Conexion {
        return result; 
    }
     
+    public ResultSet ejecutarSelectPie(int numPie) throws SQLException{
+        
+        ResultSet result = null;
+        
+        try {
+            java.sql.Statement st = conexion.createStatement();
+            String sql;
+            sql = "SELECT C.NOMBRE, initcap(M.TIPO) \"TIPO\", P.DESCRIPCION\n" +
+                    "FROM COLECCION C, PIEZA P, MOLDE M\n" +
+                    "WHERE C.ID= P.ID_COLECCION AND M.ID= P.ID_MOLDE AND P.ID= "+numPie+";";
+            result = st.executeQuery(sql);
+        } catch (SQLException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return result; 
+    }
+    
     public int ejecutarDeletePie(int id) throws SQLException{
 
         int result = 0;

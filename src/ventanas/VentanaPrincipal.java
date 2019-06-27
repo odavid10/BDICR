@@ -2388,7 +2388,26 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnModificarPiezaActionPerformed
 
     private void btnBuscarPiezaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarPiezaActionPerformed
-        // TODO add your handling code here:
+        String pieza= JOptionPane.showInputDialog("Indique el numero de la pieza que desea buscar");
+        
+        if(pieza!= null){
+            int piezaBuscar = Integer.parseInt(pieza);
+       
+            try {
+                
+                ResultSet result= cn.ejecutarSelectPie(piezaBuscar);
+                
+                while(result.next()){
+                    cmbColeccion.setSelectedItem(result.getString("NOMBRE")); 
+                    cmbTipoPieza.setSelectedItem(result.getString("TIPO"));
+                    areaDescPieza.setText(result.getString("DESCRIPCION")); 
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else{
+            System.out.println(pieza);
+        }
     }//GEN-LAST:event_btnBuscarPiezaActionPerformed
 
     private void btnEliminarPiezaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarPiezaActionPerformed
@@ -2897,12 +2916,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         
         switch(tipoPieza){
             case "Plato": inicializarPiezas();cmbTipoPlato.setEnabled(true); cmbForma.setEnabled(true); txtTamanio.setEnabled(true); areaDescPieza.setEnabled(true);break;
-            case "Bandeja": inicializarPiezas();cmbForma.setEnabled(true); txtTamanio.setEnabled(true);break;
-            case "Ensaladera": inicializarPiezas();cmbForma.setEnabled(true); txtTamanio.setEnabled(true);break;
-            case "Cazuela": inicializarPiezas();cmbForma.setEnabled(true); txtTamanio.setEnabled(true);break;
-            case "Taza": inicializarPiezas();cmbTipoTaza.setEnabled(true);break;
-            case "Jarra": inicializarPiezas();cmbVolumen.setEnabled(true);break;
-            default: inicializarPiezas();cmbCantPersonas.setEnabled(true);break;
+            case "Bandeja": inicializarPiezas();cmbForma.setEnabled(true); txtTamanio.setEnabled(true);areaDescPieza.setEnabled(true);break;
+            case "Ensaladera": inicializarPiezas();cmbForma.setEnabled(true); txtTamanio.setEnabled(true);areaDescPieza.setEnabled(true);break;
+            case "Cazuela": inicializarPiezas();cmbForma.setEnabled(true); txtTamanio.setEnabled(true);areaDescPieza.setEnabled(true);break;
+            case "Taza": inicializarPiezas();cmbTipoTaza.setEnabled(true);areaDescPieza.setEnabled(true);break;
+            case "Jarra": inicializarPiezas();cmbVolumen.setEnabled(true);areaDescPieza.setEnabled(true);break;
+            case "--": inicializarPiezas();break;
+            default: inicializarPiezas();cmbCantPersonas.setEnabled(true);areaDescPieza.setEnabled(true);break;
         }
     }//GEN-LAST:event_cmbTipoPiezaActionPerformed
 

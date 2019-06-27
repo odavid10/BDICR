@@ -52,6 +52,21 @@ public class Conexion {
         return result; 
     }
     
+    public ResultSet ejecutarSelectNombreColec() throws SQLException{
+        
+        ResultSet result = null;
+        
+        try {
+            java.sql.Statement st = conexion.createStatement();
+            String sql;
+            sql = "select nombre from COLECCION order by id asc";
+            result = st.executeQuery(sql);
+        } catch (SQLException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result; 
+    }
+    
     //MODULO DE EMPLEADOS
     public int ejecutarInsertEmp(int num_expediente, String pri_nombre, String pri_apellido, String seg_apellido, String fecha_nac,
             String tipo_sangre, String genero, String edo_civil, String estudios, String seg_nombre) throws SQLException{
@@ -113,7 +128,7 @@ public class Conexion {
         try {
             java.sql.Statement st = conexion.createStatement();
             String sql;
-            sql = "INSERT INTO HISTORICO_TURNOS VALUES ('"+fechai+"', '"+turno+"', '"+fechai+"', "+num_expediente+", (SELECT ID FROM ORGANIGRAMA WHERE NOMBRE = 'MANTENIMIENTO'));";
+            sql = "INSERT INTO HISTORICO_TURNOS VALUES ('"+fechai+"', '"+turno+"', '"+fechai+"', "+num_expediente+", (SELECT ID FROM ORGANIGRAMA WHERE NOMBRE = 'HORNOS'));";
             result = st.executeUpdate(sql);
         } catch (SQLException ex) {
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
@@ -150,9 +165,9 @@ public class Conexion {
         try {
             java.sql.Statement st = conexion.createStatement();
             String sql;
-            sql = "SELECT E.PRI_NOMBRE, E.PRI_APELLIDO, E.SEG_APELLIDO, H.FECHAI, O.NOMBRE, H.CARGO\n" +
+            sql = "SELECT E.NUM_EXPEDIENTE, E.PRI_NOMBRE, E.PRI_APELLIDO, E.SEG_APELLIDO, H.FECHAI, O.NOMBRE, H.CARGO\n" +
                     "FROM EMPLEADO E, HISTORICO_TRABAJO H, ORGANIGRAMA O\n" +
-                    "WHERE E.NUM_EXPEDIENTE = H.ID_EMP AND H.ID_ORG = O.ID;";
+                    "WHERE E.NUM_EXPEDIENTE = H.ID_EMP AND H.ID_ORG = O.ID ORDER BY NUM_EXPEDIENTE ASC;";
             result = st.executeQuery(sql);
         } catch (SQLException ex) {
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
@@ -161,10 +176,10 @@ public class Conexion {
         return result; 
     }
     
-    public ResultSet ejecutarUpdateEmp(int num_expediente, String pri_nombre, String pri_apellido, String seg_apellido, String fecha_nac,
+    public int ejecutarUpdateEmp(int num_expediente, String pri_nombre, String pri_apellido, String seg_apellido, String fecha_nac,
             String tipo_sangre, String genero, String edo_civil, String estudios, String seg_nombre) throws SQLException{
         
-        ResultSet result = null;
+        int result = 0;
         
         try {
             java.sql.Statement st = conexion.createStatement();
@@ -172,7 +187,7 @@ public class Conexion {
             sql = "UPDATE EMPLEADO SET PRI_NOMBRE = '"+pri_nombre+"', PRI_APELLIDO= '"+pri_apellido+"', SEG_APELLIDO= '"+seg_apellido+"', FECHA_NAC= '"+fecha_nac+"',\n" +
                     "	TIPO_SANGRE= '"+tipo_sangre+"', GENERO= '"+genero+"', EDO_CIVIL= '"+edo_civil+"', ESTUDIOS= '"+estudios+"', SEG_NOMBRE= '"+seg_nombre+"'\n" +
                     "WHERE NUM_EXPEDIENTE = "+num_expediente+";";
-            result = st.executeQuery(sql);
+            result = st.executeUpdate(sql);
         } catch (SQLException ex) {
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -180,16 +195,16 @@ public class Conexion {
         return result;        
     }
     
-    public ResultSet ejecutarUpdateEmpTlf(String codigo, String numero, int num_expediente) throws SQLException{
+    public int ejecutarUpdateEmpTlf(String codigo, String numero, int num_expediente) throws SQLException{
         
-        ResultSet result = null;
+        int result = 0;
         
         try {
             java.sql.Statement st = conexion.createStatement();
             String sql;
             sql = "UPDATE TELEFONO SET CODIGO= '"+codigo+"', NUMERO= '"+numero+"'\n" +
                     "WHERE ID_EMP = "+num_expediente+";";
-            result = st.executeQuery(sql);
+            result = st.executeUpdate(sql);
         } catch (SQLException ex) {
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -197,16 +212,16 @@ public class Conexion {
         return result;        
     }
     
-    public ResultSet ejecutarUpdateEmpHisTra(String fechai, double salario, String cargo, String departamento, int num_expediente) throws SQLException{
+    public int ejecutarUpdateEmpHisTra(String fechaI, int num_expediente, String fechaF) throws SQLException{
         
-        ResultSet result = null;
+        int result = 0;
         
         try {
             java.sql.Statement st = conexion.createStatement();
             String sql;
-            sql = "UPDATE HISTORICO_TRABAJO SET FECHAI= '"+fechai+"', SALARIO= '"+salario+"', CARGO= '"+cargo+"'\n" +
-                    "WHERE ID_EMP = "+num_expediente+";";
-            result = st.executeQuery(sql);
+            sql = "UPDATE HISTORICO_TRABAJO SET FECHAF= '"+fechaF+"'\n" +
+                    "WHERE ID_EMP = "+num_expediente+" and FECHAI= '"+fechaI+"';";
+            result = st.executeUpdate(sql);
         } catch (SQLException ex) {
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -214,16 +229,15 @@ public class Conexion {
         return result;        
     }
     
-    public ResultSet ejecutarUpdateEmpHisTur(String fechai, String turno, int num_expediente) throws SQLException{
+    public int ejecutarCambioEmpHisTur(String fechai, String turno, int num_expediente) throws SQLException{
         
-        ResultSet result = null;
+        int result = 0;
         
         try {
             java.sql.Statement st = conexion.createStatement();
             String sql;
-            sql = "UPDATE HISTORICO_TURNOS SET FECHAI= '"+fechai+"', TURNO= '"+turno+"'\n" +
-                    "WHERE ID_EMP = "+num_expediente+";";
-            result = st.executeQuery(sql);
+            sql = "INSERT INTO HISTORICO_TURNOS VALUES ('"+fechai+"', '"+turno+"', '"+fechai+"', "+num_expediente+", (SELECT ID FROM ORGANIGRAMA WHERE NOMBRE = 'HORNOS'));";
+            result = st.executeUpdate(sql);
         } catch (SQLException ex) {
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -238,7 +252,8 @@ public class Conexion {
         try {
             java.sql.Statement st = conexion.createStatement();
             String sql;
-            sql = "delete from telefono where id_emp = "+numEmp+";\n" +
+            sql = "DELETE FROM HISTORICO_TURNOS WHERE ID_EMP= "+numEmp+";"
+            + "delete from telefono where id_emp = "+numEmp+";\n" +
                     "delete from Historico_trabajo where id_emp = "+numEmp+";\n" +
                     "delete from empleado where num_expediente = "+numEmp+";";
             result = st.executeUpdate(sql);

@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -20,7 +21,7 @@ import javax.swing.table.DefaultTableModel;
 public class VentanaPrincipal extends javax.swing.JFrame {
     
     public static Conexion cn = new Conexion();
-    public int numEmp = 1;
+    public static int numEmp = 100;
     public static int numEmpDetalle=0;
     public static String nombreDet= "";
     public static String diaDetalle= "";
@@ -31,6 +32,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     public static String horaExtDetalle= "";
     public static String descripDetalle = "";
     public static Double montoDetalle=0.0;
+    public static String fechaAux= "";
     DefaultListModel modeloListaReu = new DefaultListModel();
     DefaultListModel modeloListaClie = new DefaultListModel();
     
@@ -43,6 +45,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         
         incializacion();
         inicializarDetalles();
+        inicializarPiezas();
         cn.conectar();
     }
 
@@ -201,6 +204,15 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         btnEliminarPieza = new javax.swing.JButton();
         btnModificarPieza = new javax.swing.JButton();
         btnListarPieza = new javax.swing.JButton();
+        cmbForma = new javax.swing.JComboBox<String>();
+        jLabel66 = new javax.swing.JLabel();
+        lblOblig45 = new javax.swing.JLabel();
+        jScrollPane9 = new javax.swing.JScrollPane();
+        areaDescPieza = new javax.swing.JTextArea();
+        jLabel67 = new javax.swing.JLabel();
+        jLabel68 = new javax.swing.JLabel();
+        lblOblig46 = new javax.swing.JLabel();
+        cmbColeccion = new javax.swing.JComboBox<String>();
         jPanel4 = new javax.swing.JPanel();
         lblOblig20 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
@@ -460,7 +472,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jLabel25.setText("Cargo");
         jPanel1.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 230, 60, -1));
 
-        cmbCargo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--", "Gerente", "Secretaria", "Supervisor", "Hornero", "Op Generales", "Eléctricista", "Mecánico", "Inspector" }));
+        cmbCargo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--", "Secretaria", "Inspector", "Hornero", "Op Generales", "Eléctricista", "Mecánico", "Gerente" }));
         cmbCargo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbCargoActionPerformed(evt);
@@ -539,21 +551,21 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         tblEmpleados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Primer Nombre", "Primer Apellido", "Segundo Apellido", "Fecha Ingreso", "Departamento", "Cargo", "Genero"
+                "Num Expediente", "Primer Nombre", "Primer Apellido", "Segundo Apellido", "Fecha Ingreso", "Departamento", "Cargo", "Genero"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -802,6 +814,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jPanel3.add(jLabel47, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, 40, 20));
 
         cmbTipoPieza.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--", "Jarra", "Tetera", "Azucarero", "Cazuela", "Bandeja", "Plato", "Ensaladera", "Taza" }));
+        cmbTipoPieza.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbTipoPiezaActionPerformed(evt);
+            }
+        });
         jPanel3.add(cmbTipoPieza, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 50, 110, -1));
 
         lblOblig35.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -818,53 +835,53 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jPanel3.add(jLabel48, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, 110, 20));
 
         jLabel49.setText("Tamaño");
-        jPanel3.add(jLabel49, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, 70, 20));
+        jPanel3.add(jLabel49, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, 70, 20));
 
         lblOblig37.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblOblig37.setForeground(new java.awt.Color(255, 0, 0));
         lblOblig37.setText("*");
-        jPanel3.add(lblOblig37, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 20, 20));
+        jPanel3.add(lblOblig37, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 20, 20));
 
         lblOblig38.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblOblig38.setForeground(new java.awt.Color(255, 0, 0));
         lblOblig38.setText("*");
-        jPanel3.add(lblOblig38, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 20, 20));
+        jPanel3.add(lblOblig38, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 20, 20));
 
         jLabel50.setText("Tipo de Taza");
-        jPanel3.add(jLabel50, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 170, 110, 20));
+        jPanel3.add(jLabel50, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, 110, 20));
 
         lblOblig39.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblOblig39.setForeground(new java.awt.Color(255, 0, 0));
         lblOblig39.setText("*");
-        jPanel3.add(lblOblig39, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, 20, 20));
+        jPanel3.add(lblOblig39, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 20, 20));
 
         jLabel51.setText("Volumen");
-        jPanel3.add(jLabel51, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 210, 70, 20));
+        jPanel3.add(jLabel51, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 240, 70, 20));
 
         lblOblig40.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblOblig40.setForeground(new java.awt.Color(255, 0, 0));
         lblOblig40.setText("*");
-        jPanel3.add(lblOblig40, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, 20, 20));
+        jPanel3.add(lblOblig40, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, 20, 20));
 
         jLabel52.setText("Cantidad de Personas");
-        jPanel3.add(jLabel52, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 250, 140, 20));
+        jPanel3.add(jLabel52, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 280, 140, 20));
 
         cmbTipoPlato.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--", "Hondo", "Llano", "Postre", "Presentación", "Taza Moka", "Pasta" }));
         jPanel3.add(cmbTipoPlato, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 90, 90, -1));
         jPanel3.add(txtTipoPlato, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 90, 110, -1));
-        jPanel3.add(txtTamanio, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 130, 110, -1));
+        jPanel3.add(txtTamanio, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 160, 110, -1));
 
         cmbTipoTaza.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--", "Café Cp", "Café Sp", "Té Cp", "Té Sp", "Moka Cp", "Moka Sp" }));
-        jPanel3.add(cmbTipoTaza, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 170, 90, -1));
-        jPanel3.add(txtTipoTaza, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 170, 110, -1));
+        jPanel3.add(cmbTipoTaza, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 200, 90, -1));
+        jPanel3.add(txtTipoTaza, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 200, 110, -1));
 
         cmbVolumen.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--", "1", "1.5" }));
-        jPanel3.add(cmbVolumen, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 210, 90, -1));
-        jPanel3.add(txtVolumen, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 210, 110, -1));
+        jPanel3.add(cmbVolumen, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 240, 90, -1));
+        jPanel3.add(txtVolumen, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 240, 110, -1));
 
         cmbCantPersonas.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--", "2", "6" }));
-        jPanel3.add(cmbCantPersonas, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 250, 90, -1));
-        jPanel3.add(txtCantPersonas, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 250, 110, -1));
+        jPanel3.add(cmbCantPersonas, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 280, 90, -1));
+        jPanel3.add(txtCantPersonas, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 280, 110, -1));
 
         btnCancelarPieza.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cancel.png"))); // NOI18N
         btnCancelarPieza.setText("Cancelar");
@@ -873,7 +890,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 btnCancelarPiezaActionPerformed(evt);
             }
         });
-        jPanel3.add(btnCancelarPieza, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 430, 140, 40));
+        jPanel3.add(btnCancelarPieza, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 450, 140, 40));
 
         btnBuscarPieza.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/search.png"))); // NOI18N
         btnBuscarPieza.setText("Buscar");
@@ -882,7 +899,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 btnBuscarPiezaActionPerformed(evt);
             }
         });
-        jPanel3.add(btnBuscarPieza, new org.netbeans.lib.awtextra.AbsoluteConstraints(295, 370, 140, 40));
+        jPanel3.add(btnBuscarPieza, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 390, 140, 40));
 
         jTable3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -935,7 +952,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 btnAgregarPiezaActionPerformed(evt);
             }
         });
-        jPanel3.add(btnAgregarPieza, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 370, 140, 40));
+        jPanel3.add(btnAgregarPieza, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 390, 140, 40));
 
         btnEliminarPieza.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/deleteProd.png"))); // NOI18N
         btnEliminarPieza.setText("Eliminar");
@@ -944,7 +961,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 btnEliminarPiezaActionPerformed(evt);
             }
         });
-        jPanel3.add(btnEliminarPieza, new org.netbeans.lib.awtextra.AbsoluteConstraints(295, 430, 140, 40));
+        jPanel3.add(btnEliminarPieza, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 450, 140, 40));
 
         btnModificarPieza.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/modifyProd.png"))); // NOI18N
         btnModificarPieza.setText("Modificar");
@@ -953,7 +970,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 btnModificarPiezaActionPerformed(evt);
             }
         });
-        jPanel3.add(btnModificarPieza, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 430, 140, 40));
+        jPanel3.add(btnModificarPieza, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 450, 140, 40));
 
         btnListarPieza.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/list.png"))); // NOI18N
         btnListarPieza.setText("Listar");
@@ -962,7 +979,38 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 btnListarPiezaActionPerformed(evt);
             }
         });
-        jPanel3.add(btnListarPieza, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 370, 140, 40));
+        jPanel3.add(btnListarPieza, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 390, 140, 40));
+
+        cmbForma.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--", "Ovalada", "redonda", "Rectangular", "Cuadrada" }));
+        jPanel3.add(cmbForma, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 125, 90, -1));
+
+        jLabel66.setText("Forma");
+        jPanel3.add(jLabel66, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 125, 110, 20));
+
+        lblOblig45.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblOblig45.setForeground(new java.awt.Color(255, 0, 0));
+        lblOblig45.setText("*");
+        jPanel3.add(lblOblig45, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 125, 20, 20));
+
+        areaDescPieza.setColumns(20);
+        areaDescPieza.setRows(5);
+        jScrollPane9.setViewportView(areaDescPieza);
+
+        jPanel3.add(jScrollPane9, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 320, 240, 60));
+
+        jLabel67.setText("Descripción");
+        jPanel3.add(jLabel67, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 320, 80, 20));
+
+        jLabel68.setText("Colección");
+        jPanel3.add(jLabel68, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 15, 70, 20));
+
+        lblOblig46.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblOblig46.setForeground(new java.awt.Color(255, 0, 0));
+        lblOblig46.setText("*");
+        jPanel3.add(lblOblig46, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 15, 20, 20));
+
+        cmbColeccion.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--", "LINEAL VERDE", "LINEAL CEREZA", "CAMPIÑA INGLESA", "COUNTRY ROSA", "ONDAS SUAVES" }));
+        jPanel3.add(cmbColeccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 15, 110, -1));
 
         jTabbedPane1.addTab("Piezas", jPanel3);
 
@@ -1614,6 +1662,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         lblOblig38.setVisible(true);
         lblOblig39.setVisible(true);
         lblOblig40.setVisible(true);
+        lblOblig45.setVisible(true);
+        lblOblig46.setVisible(true);
     }
     
     private void ocultarCampObligPiezas(){
@@ -1623,20 +1673,34 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         lblOblig38.setVisible(false);
         lblOblig39.setVisible(false);
         lblOblig40.setVisible(false);
+        lblOblig45.setVisible(false);
+        lblOblig46.setVisible(false);
     }
     
     private void limpiarCamposPiezas(){
         txtTipoPlato.setText(null);
         txtTamanio.setText(null);
-        txtApellido1.setText(null);
         txtTipoTaza.setText(null);
         txtVolumen.setText(null);
         txtCantPersonas.setText(null);
+        cmbColeccion.setSelectedIndex(0);
         cmbTipoPieza.setSelectedIndex(0);
+        cmbForma.setSelectedIndex(0);
         cmbTipoPlato.setSelectedIndex(0);
         cmbTipoTaza.setSelectedIndex(0);
         cmbVolumen.setSelectedIndex(0);
         cmbCantPersonas.setSelectedIndex(0);
+        areaDescPieza.setText(null);
+    }
+    
+    private void inicializarPiezas(){
+        txtTamanio.setEnabled(false);
+        cmbForma.setEnabled(false);
+        cmbTipoPlato.setEnabled(false);
+        cmbTipoTaza.setEnabled(false);
+        cmbVolumen.setEnabled(false);
+        cmbCantPersonas.setEnabled(false);
+        areaDescPieza.setEnabled(false);
     }
     
     private void ocultarCampObligClie(){
@@ -1737,7 +1801,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     
     private void nuevoClientePedido(){
         txtNomCliente1.setEnabled(true);
+        txtDescuento2.setEnabled(true);
         cmbPais1.setEnabled(true);
+        txtRIF1.setEnabled(true);
         cmbCodTlf3.setEnabled(true);
         txtTlf3.setEnabled(true);
     }
@@ -1854,33 +1920,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void insertTableLista(ResultSet resultado) throws SQLException{
         ResultSet result = resultado;
         DefaultTableModel modeloTabla = new DefaultTableModel();
-        Object[] registro = new Object[6];
-        
-        tblEmpleados.setModel(modeloTabla);
-        modeloTabla.addColumn("Primer Nombre");
-        modeloTabla.addColumn("Primer Apellido");
-        modeloTabla.addColumn("Segundo Apellido");
-        modeloTabla.addColumn("Fecha Ingreso");
-        modeloTabla.addColumn("Departamento");
-        modeloTabla.addColumn("Cargo");
-
-        while (result.next()) {
-            registro[0] = result.getString("PRI_NOMBRE");
-            registro[1] = result.getString("PRI_APELLIDO");
-            registro[2] = result.getString("SEG_APELLIDO");
-            registro[3] = result.getString("FECHAI");
-            registro[4] = result.getString("NOMBRE");
-            registro[5] = result.getString("CARGO");
-            modeloTabla.addRow(registro);
-        }
-    }
-    
-    private void insertTableBuscar(ResultSet resultado) throws SQLException{
-        ResultSet result = resultado;
-        DefaultTableModel modeloTabla = new DefaultTableModel();
         Object[] registro = new Object[7];
         
         tblEmpleados.setModel(modeloTabla);
+        modeloTabla.addColumn("Num Expediente");
         modeloTabla.addColumn("Primer Nombre");
         modeloTabla.addColumn("Primer Apellido");
         modeloTabla.addColumn("Segundo Apellido");
@@ -1889,12 +1932,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         modeloTabla.addColumn("Cargo");
 
         while (result.next()) {
-            registro[0] = result.getString("PRI_NOMBRE");
-            registro[1] = result.getString("PRI_APELLIDO");
-            registro[2] = result.getString("SEG_APELLIDO");
-            registro[3] = result.getString("FECHAI");
-            registro[4] = result.getString("NOMBRE");
-            registro[5] = result.getString("CARGO");
+            registro[0] = result.getString("NUM_EXPEDIENTE");
+            registro[1] = result.getString("PRI_NOMBRE");
+            registro[2] = result.getString("PRI_APELLIDO");
+            registro[3] = result.getString("SEG_APELLIDO");
+            registro[4] = result.getString("FECHAI");
+            registro[5] = result.getString("NOMBRE");
+            registro[6] = result.getString("CARGO");
             modeloTabla.addRow(registro);
         }
     }
@@ -1945,6 +1989,17 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
         
         return depAsignado;
+    }
+    
+    private void llenarComboColeccion() throws SQLException{
+        DefaultComboBoxModel modelo = new DefaultComboBoxModel();
+        ResultSet result = cn.ejecutarSelectNombreColec();
+        
+        while(result.next()){                
+            modelo.addElement(result.getString("nombre"));
+        }
+        
+        cmbColeccion.setModel(modelo);
     }
     
     //MÓDULO EMPLEADO
@@ -2053,16 +2108,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                     txtNombre2.setText(result.getString("SEG_NOMBRE"));
                     txtApellido1.setText(result.getString("PRI_APELLIDO")); 
                     txtApellido2.setText(result.getString("SEG_APELLIDO")); 
-                    cmbTsangre.setSelectedItem(result.getString("TIPO_SANGRE"));
-                    cmbGenero.setSelectedItem(result.getString("GENERO"));
-                    cmbEdoCivil.setSelectedItem(result.getString("EDO_CIVIL"));
-                    cmbEstudios.setSelectedItem(result.getString("ESTUDIOS"));
-                    cmbCodTlf.setSelectedItem(result.getString("CODIGO"));
                     txtTlf1.setText(result.getString("NUMERO")); 
-                    txtSalario.setText(result.getString("SALARIO")); 
-                    cmbCargo.setSelectedItem(result.getString("CARGO"));
+                    txtSalario.setText(result.getString("SALARIO"));
+                    fechaAux= result.getString("FECHAI"); 
                 }
-                
+                System.out.println(fechaAux);
             } catch (SQLException ex) {
                 Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -2071,7 +2121,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_btnBuscarEmpActionPerformed
-    //REVISAR MODIFICAR EMPLEADO
+    //REVISAR MODIFICAR EMPLEADO hornero
     private void btnModificarEmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarEmpActionPerformed
        
         if ((txtNombre1.getText().equals("")) || (txtNombre2.getText().equals("")) || 
@@ -2104,6 +2154,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 (txtSalario.getText().equals("--")))) {
                 //Agrego los campos necesarios
                 
+                numEmp= Integer.parseInt(txtNumExp.getText());
                 String nom1= txtNombre1.getText().toUpperCase();
                 String ape1= txtApellido1.getText().toUpperCase();
                 String nom2= txtNombre2.getText().toUpperCase();
@@ -2120,14 +2171,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 String genero= cmbGenero.getSelectedItem().toString().toUpperCase();
                 String civil= cmbEdoCivil.getSelectedItem().toString().toUpperCase();
                 String estudios= cmbEstudios.getSelectedItem().toString().toUpperCase();
-                String dep= cmbDepartamento.getSelectedItem().toString().toUpperCase();
+                String dep= asigDep(cmbDepartamento.getSelectedItem().toString());
                 String cargo = cmbCargo.getSelectedItem().toString().toUpperCase();
                 String turno= cmbTurno.getSelectedItem().toString();
                 String cod = cmbCodTlf.getSelectedItem().toString();
                 String num = txtTlf1.getText();
                 double sal = Double.parseDouble(txtSalario.getText());
                 System.out.println(nom1+' '+ nom2+' '+ape1+' '+ape2);
-                System.out.println(fechai+' '+ fechaN+' '+ dep+' '+sal);
+                System.out.println(fechai+' '+ fechaN+' '+ dep+' '+sal+ " "+ cargo);
                 System.out.println(tsangre+' '+ genero+' '+civil+' '+estudios);
                 System.out.println(cod+ ' '+ num);
                 
@@ -2135,12 +2186,16 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                     if(!(cargo.equals("HORNERO"))){
                         cn.ejecutarUpdateEmp(numEmp, nom1, ape1, ape2, fechaN, tsangre, genero, civil, estudios, nom2);
                         cn.ejecutarUpdateEmpTlf(cod, num, numEmp);
-                        cn.ejecutarUpdateEmpHisTra(fechai, sal, cargo, dep, numEmp);
+                        System.out.println(fechai+" "+numEmp+" "+fechaAux);
+                        cn.ejecutarUpdateEmpHisTra(fechai, numEmp, fechaAux);
+                        System.out.println(fechai+" "+numEmp+" "+fechaAux);
                     }else{
                         cn.ejecutarUpdateEmp(numEmp, nom1, ape1, ape2, fechaN, tsangre, genero, civil, estudios, nom2);
                         cn.ejecutarUpdateEmpTlf(cod, num, numEmp);
-                        cn.ejecutarUpdateEmpHisTra(fechai, sal, cargo, dep, numEmp);
-                        cn.ejecutarUpdateEmpHisTur(fechai, turno, numEmp);
+                        //cn.ejecutarUpdateEmpHisTra(fechai, sal, cargo, dep, numEmp, fechaAux);
+                        //cn.ejecutarInsertEmpHisTra(fechai, sal, cargo, turno, numEmpDetalle);
+                        cn.ejecutarCambioEmpHisTur(fechai, turno, numEmp);
+                        System.out.println("es HORNERO");
                     }
 
                 } catch (SQLException ex) {
@@ -2169,13 +2224,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }else{
             System.out.println(empleado);
         }
-        
+        limpiarCamposEmp();
     }//GEN-LAST:event_btnEliminiarEmpActionPerformed
 
     private void btnCancelarEmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarEmpActionPerformed
         ocultarCampObligEmp();
         limpiarCamposEmp();
-        habilitarCampEmp();
     }//GEN-LAST:event_btnCancelarEmpActionPerformed
 
     private void btnListarEmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarEmpActionPerformed
@@ -2729,7 +2783,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             Date horaInicio= horaFormato.parse(horaI);
             Date horaFin= horaFormato.parse(horaF);
             System.out.println(horaI+" "+horaF);
-            if(horaInicio.compareTo(horaFin)<0){
+            if(horaInicio.compareTo(horaFin)>0){
                 JOptionPane.showMessageDialog(null, "Hora de finalización de la reunión no puede ser menor a la hora de inicio.", "Error", JOptionPane.ERROR_MESSAGE);
                 txtHoraF.setText(null);
             }
@@ -2752,6 +2806,21 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_cmbPaisActionPerformed
+
+    private void cmbTipoPiezaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTipoPiezaActionPerformed
+        
+        String tipoPieza= cmbTipoPieza.getSelectedItem().toString();
+        
+        switch(tipoPieza){
+            case "Plato": inicializarPiezas();cmbTipoPlato.setEnabled(true); cmbForma.setEnabled(true); txtTamanio.setEnabled(true); areaDescPieza.setEnabled(true);break;
+            case "Bandeja": inicializarPiezas();cmbForma.setEnabled(true); txtTamanio.setEnabled(true);break;
+            case "Ensaladera": inicializarPiezas();cmbForma.setEnabled(true); txtTamanio.setEnabled(true);break;
+            case "Cazuela": inicializarPiezas();cmbForma.setEnabled(true); txtTamanio.setEnabled(true);break;
+            case "Taza": inicializarPiezas();cmbTipoTaza.setEnabled(true);break;
+            case "Jarra": inicializarPiezas();cmbVolumen.setEnabled(true);break;
+            default: inicializarPiezas();cmbCantPersonas.setEnabled(true);break;
+        }
+    }//GEN-LAST:event_cmbTipoPiezaActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -2787,6 +2856,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextArea areaDescPieza;
     private javax.swing.JTextArea areaDescrip;
     private javax.swing.JTextArea areaMinutas;
     private javax.swing.JButton bntCancelarPedido;
@@ -2838,6 +2908,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JComboBox cmbCodTlf;
     private javax.swing.JComboBox cmbCodTlf2;
     private javax.swing.JComboBox cmbCodTlf3;
+    private javax.swing.JComboBox<String> cmbColeccion;
     private javax.swing.JComboBox cmbDepartamento;
     private javax.swing.JComboBox cmbDiaContra;
     private javax.swing.JComboBox cmbDiaDetalle;
@@ -2848,6 +2919,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JComboBox cmbDiaReu;
     private javax.swing.JComboBox cmbEdoCivil;
     private javax.swing.JComboBox cmbEstudios;
+    private javax.swing.JComboBox<String> cmbForma;
     private javax.swing.JComboBox cmbGenero;
     private javax.swing.JComboBox cmbMesContra;
     private javax.swing.JComboBox cmbMesDetalle;
@@ -2928,6 +3000,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel63;
     private javax.swing.JLabel jLabel64;
     private javax.swing.JLabel jLabel65;
+    private javax.swing.JLabel jLabel66;
+    private javax.swing.JLabel jLabel67;
+    private javax.swing.JLabel jLabel68;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
@@ -2946,6 +3021,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
+    private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTabbedPane jTabbedPane1;
@@ -3002,6 +3078,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel lblOblig42;
     private javax.swing.JLabel lblOblig43;
     private javax.swing.JLabel lblOblig44;
+    private javax.swing.JLabel lblOblig45;
+    private javax.swing.JLabel lblOblig46;
     private javax.swing.JLabel lblOblig5;
     private javax.swing.JLabel lblOblig6;
     private javax.swing.JLabel lblOblig7;

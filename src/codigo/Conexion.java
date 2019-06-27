@@ -576,36 +576,107 @@ public class Conexion {
         return result; 
     }
     
-     public int ejecutarInsertContra(String fechaContrato, Double descuento, String nombreCliente) throws SQLException{
-        
-        int result = 0;
-        
-        try {
-            java.sql.Statement st = conexion.createStatement();
-            String sql;
-            sql = "INSERT INTO CONTRATO (FECHA, DESCUENTO, ID_CLIENTE) VALUES ('"+fechaContrato+"', "+descuento+", (SELECT ID FROM CLIENTE WHERE NOMBRE= '"+nombreCliente+"'));";
-            result = st.executeUpdate(sql);
-        } catch (SQLException ex) {
-            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        return result; 
-    }
+    public int ejecutarInsertContra(String fechaContrato, Double descuento, String nombreCliente) throws SQLException{
+
+       int result = 0;
+
+       try {
+           java.sql.Statement st = conexion.createStatement();
+           String sql;
+           sql = "INSERT INTO CONTRATO (FECHA, DESCUENTO, ID_CLIENTE) VALUES ('"+fechaContrato+"', "+descuento+", (SELECT ID FROM CLIENTE WHERE NOMBRE= '"+nombreCliente+"'));";
+           result = st.executeUpdate(sql);
+       } catch (SQLException ex) {
+           Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+       }
+
+       return result; 
+   }
+
+    public int ejecutarDeleteContra(String fecha, String nomCliente) throws SQLException{
+
+       int result = 0;
+
+       try {
+           java.sql.Statement st = conexion.createStatement();
+           String sql;
+           sql = "DELETE FROM CONTRATO WHERE FECHA= '"+fecha+"' AND ID_CLIENTE= (SELECT ID FROM CLIENTE WHERE NOMBRE= '"+nomCliente+"');";
+           result = st.executeUpdate(sql);
+       } catch (SQLException ex) {
+           Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+       }
+
+       return result; 
+   }
+
+    //MODULO PIEZAS
+    public int ejecutarInsertPlato(String descripcion, String tipo, String tipoPlato, String forma, String coleccion)  throws SQLException{
+
+       int result = 0;
+
+       try {
+           java.sql.Statement st = conexion.createStatement();
+           String sql;
+            sql = "INSERT INTO PIEZA (DESCRIPCION, ID_MOLDE, ID_COLECCION) VALUES ('"+descripcion+"', "
+                    + "(SELECT ID FROM MOLDE\n" +
+                    "WHERE TIPO = '"+tipo+"' AND TIPO_PLATO= '"+tipoPlato+"' AND FORMA = '"+forma+"';), "
+                    + "(SELECT ID FROM COLECCION WHERE NOMBRE= '"+coleccion+"'));";
+           result = st.executeUpdate(sql);
+       } catch (SQLException ex) {
+           Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+       }
+
+       return result; 
+   }
     
-     public int ejecutarDeleteContra(String fecha, String nomCliente) throws SQLException{
-        
+    public int ejecutarInsertbandeja(String descripcion, String tipo, String forma, String coleccion)  throws SQLException{
+
+       int result = 0;
+
+       try {
+           java.sql.Statement st = conexion.createStatement();
+           String sql;
+            sql = "INSERT INTO PIEZA (DESCRIPCION, ID_MOLDE, ID_COLECCION) VALUES ('"+descripcion+"', "
+                    + "(SELECT ID FROM MOLDE\n" +
+                    "WHERE TIPO = '"+tipo+"' AND FORMA = '"+forma+"';), "
+                    + "(SELECT ID FROM COLECCION WHERE NOMBRE= '"+coleccion+"'));";
+           result = st.executeUpdate(sql);
+       } catch (SQLException ex) {
+           Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+       }
+
+       return result; 
+   }
+    
+    public int ejecutarDeletePie(int id) throws SQLException{
+
         int result = 0;
+
+        try {
+            java.sql.Statement st = conexion.createStatement();
+            String sql;
+            sql = "DELETE FROM PIEZA WHERE ID= "+id+";";
+            result = st.executeUpdate(sql);
+        } catch (SQLException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result;
+    }
+     
+    public ResultSet ejecutarSelectPiezas() throws SQLException{
+        
+        ResultSet result = null;
         
         try {
             java.sql.Statement st = conexion.createStatement();
             String sql;
-            sql = "DELETE FROM CONTRATO WHERE FECHA= '"+fecha+"' AND ID_CLIENTE= (SELECT ID FROM CLIENTE WHERE NOMBRE= '"+nomCliente+"');";
-            result = st.executeUpdate(sql);
+            sql = "SELECT ID, DESCRIPCION FROM PIEZA;";
+            result = st.executeQuery(sql);
         } catch (SQLException ex) {
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         return result; 
     }
+     
      
 }

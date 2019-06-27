@@ -199,7 +199,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         btnCancelarPieza = new javax.swing.JButton();
         btnBuscarPieza = new javax.swing.JButton();
         jScrollPane8 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
+        tblPiezas = new javax.swing.JTable();
         btnAgregarPieza = new javax.swing.JButton();
         btnEliminarPieza = new javax.swing.JButton();
         btnModificarPieza = new javax.swing.JButton();
@@ -213,6 +213,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jLabel68 = new javax.swing.JLabel();
         lblOblig46 = new javax.swing.JLabel();
         cmbColeccion = new javax.swing.JComboBox<String>();
+        lblOblig47 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         lblOblig20 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
@@ -813,7 +814,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jLabel47.setText("Pieza");
         jPanel3.add(jLabel47, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, 40, 20));
 
-        cmbTipoPieza.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--", "Jarra", "Tetera", "Azucarero", "Cazuela", "Bandeja", "Plato", "Ensaladera", "Taza" }));
+        cmbTipoPieza.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--", "Jarra", "Tetera", "Lechera", "Azucarero", "Cazuela", "Bandeja", "Plato", "Ensaladera", "Taza" }));
         cmbTipoPieza.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbTipoPiezaActionPerformed(evt);
@@ -861,7 +862,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         lblOblig40.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblOblig40.setForeground(new java.awt.Color(255, 0, 0));
         lblOblig40.setText("*");
-        jPanel3.add(lblOblig40, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, 20, 20));
+        jPanel3.add(lblOblig40, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, 20, 20));
 
         jLabel52.setText("Cantidad de Personas");
         jPanel3.add(jLabel52, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 280, 140, 20));
@@ -901,49 +902,49 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
         jPanel3.add(btnBuscarPieza, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 390, 140, 40));
 
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+        tblPiezas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null}
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
             },
             new String [] {
-                "Pieza"
+                "Codigo", "Pieza"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false
+                false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane8.setViewportView(jTable3);
+        jScrollPane8.setViewportView(tblPiezas);
 
-        jPanel3.add(jScrollPane8, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 40, 230, 300));
+        jPanel3.add(jScrollPane8, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 20, 270, 350));
 
         btnAgregarPieza.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/addProd.png"))); // NOI18N
         btnAgregarPieza.setText("Agregar");
@@ -1010,7 +1011,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jPanel3.add(lblOblig46, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 15, 20, 20));
 
         cmbColeccion.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--", "LINEAL VERDE", "LINEAL CEREZA", "CAMPIÑA INGLESA", "COUNTRY ROSA", "ONDAS SUAVES" }));
-        jPanel3.add(cmbColeccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 15, 110, -1));
+        jPanel3.add(cmbColeccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 15, 180, -1));
+
+        lblOblig47.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblOblig47.setForeground(new java.awt.Color(255, 0, 0));
+        lblOblig47.setText("*");
+        jPanel3.add(lblOblig47, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, 20, 20));
 
         jTabbedPane1.addTab("Piezas", jPanel3);
 
@@ -1664,6 +1670,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         lblOblig40.setVisible(true);
         lblOblig45.setVisible(true);
         lblOblig46.setVisible(true);
+        lblOblig46.setVisible(true);
     }
     
     private void ocultarCampObligPiezas(){
@@ -1675,6 +1682,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         lblOblig40.setVisible(false);
         lblOblig45.setVisible(false);
         lblOblig46.setVisible(false);
+        lblOblig47.setVisible(false);
     }
     
     private void limpiarCamposPiezas(){
@@ -2002,6 +2010,22 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         cmbColeccion.setModel(modelo);
     }
     
+    private void insertTableListaPie(ResultSet resultado) throws SQLException{
+        ResultSet result = resultado;
+        DefaultTableModel modeloTabla = new DefaultTableModel();
+        Object[] registro = new Object[2];
+        
+        tblPiezas.setModel(modeloTabla);
+        modeloTabla.addColumn("ID");
+        modeloTabla.addColumn("Pieza");
+
+        while (result.next()) {
+            registro[0] = result.getString("ID");
+            registro[1] = result.getString("DESCRIPCION");
+            modeloTabla.addRow(registro);
+        }
+    }
+    
     //MÓDULO EMPLEADO
     private void btnAgregarEmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarEmpActionPerformed
         
@@ -2320,7 +2344,43 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     //MÓDULO PIEZA
     private void btnAgregarPiezaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarPiezaActionPerformed
-        // TODO add your handling code here:
+        
+        if ((cmbColeccion.getSelectedIndex()==0) || (cmbTipoPieza.getSelectedIndex()==0)){
+            //Faltan Campos Obligatorios
+            JOptionPane.showMessageDialog(null, "Ingrese todos los campos obligatorios", "Error", JOptionPane.ERROR_MESSAGE);
+            mostrarCampObligPiezas();
+ 
+        } else if (!((cmbColeccion.getSelectedIndex()==0) || (cmbTipoPieza.getSelectedIndex()==0))){
+            //Ingresó campos necesarios
+            String colec= cmbColeccion.getSelectedItem().toString().toUpperCase();
+            String tipo= cmbTipoPieza.getSelectedItem().toString().toUpperCase();
+            String tipoPlato= cmbTipoPlato.getSelectedItem().toString().toUpperCase();
+            String forma= cmbForma.getSelectedItem().toString().toUpperCase();
+            String tipoTaza= cmbTipoTaza.getSelectedItem().toString().toUpperCase();
+            String vol= cmbVolumen.getSelectedItem().toString().toUpperCase();
+            String cant= cmbCantPersonas.getSelectedItem().toString().toUpperCase();
+            String descrip= areaDescPieza.getText().toUpperCase();
+            
+            try {
+                switch(tipo){
+                    case "Plato": cn.ejecutarInsertPlato(descrip, tipo, tipoPlato, forma, colec);break;
+                    case "Bandeja": cn.ejecutarInsertbandeja(descrip, tipo, forma, colec);break;
+                /*    case "Ensaladera": inicializarPiezas();cmbForma.setEnabled(true); txtTamanio.setEnabled(true);break;
+                    case "Cazuela": inicializarPiezas();cmbForma.setEnabled(true); txtTamanio.setEnabled(true);break;
+                    case "Taza": inicializarPiezas();cmbTipoTaza.setEnabled(true);break;
+                    case "Jarra": inicializarPiezas();cmbVolumen.setEnabled(true);break;
+                    default: inicializarPiezas();cmbCantPersonas.setEnabled(true);break;*/
+                }
+                
+            } catch (SQLException ex) {
+                Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+           
+
+            JOptionPane.showMessageDialog(null, "Pieza agregada con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            limpiarCamposPiezas();
+            ocultarCampObligPiezas();
+        }
     }//GEN-LAST:event_btnAgregarPiezaActionPerformed
 
     private void btnModificarPiezaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarPiezaActionPerformed
@@ -2332,11 +2392,35 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBuscarPiezaActionPerformed
 
     private void btnEliminarPiezaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarPiezaActionPerformed
-        // TODO add your handling code here:
+       
+        String numPieza= JOptionPane.showInputDialog("Indique el codigo de la pieza que desea eliminar");
+        
+        if(numPieza!= null){
+            int idPieza = Integer.parseInt(numPieza);
+            
+            try {
+                cn.ejecutarDeletePie(idPieza);
+            } catch (SQLException ex) {
+                Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            System.out.println(numPieza);   
+        }else{
+            System.out.println(numPieza);
+        }
+        limpiarCamposPiezas();
+        inicializarPiezas();
     }//GEN-LAST:event_btnEliminarPiezaActionPerformed
 
     private void btnListarPiezaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarPiezaActionPerformed
-        // TODO add your handling code here:
+
+        try {
+
+            ResultSet result = cn.ejecutarSelectPiezas();
+            insertTableListaPie(result);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnListarPiezaActionPerformed
 
     private void btnCancelarPiezaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarPiezaActionPerformed
@@ -3027,7 +3111,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
-    private javax.swing.JTable jTable3;
     private javax.swing.JLabel lblDuracion;
     private javax.swing.JLabel lblFechaEntrega;
     private javax.swing.JLabel lblNombreClie;
@@ -3080,6 +3163,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel lblOblig44;
     private javax.swing.JLabel lblOblig45;
     private javax.swing.JLabel lblOblig46;
+    private javax.swing.JLabel lblOblig47;
     private javax.swing.JLabel lblOblig5;
     private javax.swing.JLabel lblOblig6;
     private javax.swing.JLabel lblOblig7;
@@ -3095,6 +3179,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JRadioButton rbtnAnio;
     private javax.swing.JRadioButton rbtnMes;
     private javax.swing.JTable tblEmpleados;
+    private javax.swing.JTable tblPiezas;
     private javax.swing.JTextField txtApellido1;
     private javax.swing.JTextField txtApellido2;
     private javax.swing.JTextField txtCantPersonas;

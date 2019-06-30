@@ -264,7 +264,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         cmbMesPedido = new javax.swing.JComboBox();
         cmbAnioPedido = new javax.swing.JComboBox();
         jLabel32 = new javax.swing.JLabel();
-        txtNomCliente1 = new javax.swing.JTextField();
         jLabel33 = new javax.swing.JLabel();
         cmbPais1 = new javax.swing.JComboBox();
         jLabel34 = new javax.swing.JLabel();
@@ -281,12 +280,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jLabel36 = new javax.swing.JLabel();
         txtDescuento2 = new javax.swing.JTextField();
         jLabel37 = new javax.swing.JLabel();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
         btnGenerarPedido = new javax.swing.JButton();
         bntCancelarPedido = new javax.swing.JButton();
         btnGenerarFactura = new javax.swing.JButton();
-        jLabel38 = new javax.swing.JLabel();
         lblTotalPedido = new javax.swing.JLabel();
         jLabel53 = new javax.swing.JLabel();
         lblFechaEntrega = new javax.swing.JLabel();
@@ -295,10 +291,16 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         lblOblig42 = new javax.swing.JLabel();
         lblOblig43 = new javax.swing.JLabel();
         jLabel55 = new javax.swing.JLabel();
-        cmbCantPedido = new javax.swing.JComboBox<String>();
-        cmbCantPedido1 = new javax.swing.JComboBox<String>();
         jLabel56 = new javax.swing.JLabel();
         lblOblig44 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        insertFactura = new javax.swing.JButton();
+        txtCantPedido = new javax.swing.JTextField();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jLabel38 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         cmbDiaFactura = new javax.swing.JComboBox();
         lblOblig33 = new javax.swing.JLabel();
@@ -336,18 +338,42 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jLabel2.setText("Primer Nombre");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 100, -1));
+
+        txtNombre1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombre2KeyTyped(evt);
+            }
+        });
         jPanel1.add(txtNombre1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 60, 170, -1));
 
         jLabel3.setText("Primer Apellido");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, 100, -1));
+
+        txtApellido1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtApellido2KeyTyped(evt);
+            }
+        });
         jPanel1.add(txtApellido1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 100, 170, -1));
 
         jLabel4.setText("Segundo Apellido");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 100, 100, -1));
+
+        txtApellido2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtApellido2KeyTyped(evt);
+            }
+        });
         jPanel1.add(txtApellido2, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 100, 170, -1));
 
         jLabel5.setText("Segundo Nombre");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 60, 100, -1));
+
+        txtNombre2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombre2KeyTyped(evt);
+            }
+        });
         jPanel1.add(txtNombre2, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 60, 170, -1));
 
         jLabel6.setText("Fecha de Nacimiento");
@@ -416,6 +442,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jLabel16.setText("Telefono");
         jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 190, 60, -1));
+
+        txtTlf1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtTlf1KeyTyped(evt);
+            }
+        });
         jPanel1.add(txtTlf1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 190, 130, -1));
 
         lblOblig10.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -499,6 +531,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jLabel29.setText("Salario");
         jPanel1.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 230, 50, -1));
+
+        txtSalario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtSalarioKeyTyped(evt);
+            }
+        });
         jPanel1.add(txtSalario, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 230, 80, -1));
 
         btnEliminiarEmp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/deleteEmp.png"))); // NOI18N
@@ -634,6 +672,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         lblOblig104.setForeground(new java.awt.Color(255, 0, 0));
         lblOblig104.setText("*");
         jPanel8.add(lblOblig104, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 260, 20, -1));
+
+        txtMonto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtMontoKeyTyped(evt);
+            }
+        });
         jPanel8.add(txtMonto, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 260, 80, -1));
 
         btnGrpMesAnio.add(rbtnMes);
@@ -654,7 +698,19 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jLabel60.setText("Horas Extra");
         jPanel8.add(jLabel60, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 225, -1, -1));
+
+        txtHorasExt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtTempRetrasoKeyTyped(evt);
+            }
+        });
         jPanel8.add(txtHorasExt, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 225, 80, -1));
+
+        txtTempRetraso.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtTempRetrasoKeyTyped(evt);
+            }
+        });
         jPanel8.add(txtTempRetraso, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 190, 80, -1));
 
         jLabel61.setText("Tiempo de Retraso");
@@ -683,6 +739,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jLabel64.setText("Numero expediente");
         jPanel8.add(jLabel64, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 30, 120, 20));
+
+        txtNumEmp.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNumEmpKeyTyped(evt);
+            }
+        });
         jPanel8.add(txtNumEmp, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 30, 90, -1));
 
         lblOblig105.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -706,6 +768,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jLabel65.setText("Nombre");
         jPanel8.add(jLabel65, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 160, -1, -1));
+
+        txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreKeyTyped(evt);
+            }
+        });
         jPanel8.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 160, 80, -1));
 
         jTabbedPane1.addTab("Detalles", jPanel8);
@@ -714,6 +782,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jLabel7.setText("Número Empleado \nSupervisor");
         jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, 180, 30));
+
+        txtNumSupervisor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNumSupervisorKeyTyped(evt);
+            }
+        });
         jPanel2.add(txtNumSupervisor, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 80, 100, -1));
 
         jLabel24.setText("Fecha");
@@ -744,12 +818,18 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jLabel9.setText("Hora Inicio");
         jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, -1, -1));
 
-        txtHoraF.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtHoraFFocusLost(evt);
+        txtHoraF.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtHoraFKeyTyped(evt);
             }
         });
         jPanel2.add(txtHoraF, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 160, 100, -1));
+
+        txtHoraI.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtHoraFKeyTyped(evt);
+            }
+        });
         jPanel2.add(txtHoraI, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 120, 100, -1));
 
         lblOblig18.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -1041,6 +1121,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jLabel14.setText("RIF");
         jPanel4.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 130, -1, -1));
+
+        txtRIF.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtRIFKeyTyped(evt);
+            }
+        });
         jPanel4.add(txtRIF, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 130, 180, -1));
 
         lblOblig22.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -1063,6 +1149,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         lblOblig23.setForeground(new java.awt.Color(255, 0, 0));
         lblOblig23.setText("*");
         jPanel4.add(lblOblig23, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, 20, -1));
+
+        txtTlf2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtTlf2KeyTyped(evt);
+            }
+        });
         jPanel4.add(txtTlf2, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 180, 180, -1));
 
         cmbCodTlf2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--", "0414", "0424", "0412", "0416", "0426", "0212" }));
@@ -1101,6 +1193,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jLabel22.setText("Descuento");
         jPanel4.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 420, -1, -1));
+
+        txtDescuento.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDescuentoKeyTyped(evt);
+            }
+        });
         jPanel4.add(txtDescuento, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 420, 50, -1));
 
         jLabel28.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -1211,6 +1309,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jLabel30.setText("Numero de Pedido");
         jPanel5.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 30, -1, -1));
+
+        txtNumPedido.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNumPedidoKeyTyped(evt);
+            }
+        });
         jPanel5.add(txtNumPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 30, 60, -1));
 
         lblOblig27.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -1232,9 +1336,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jLabel32.setText("Nombre");
         jPanel5.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, -1, -1));
-
-        txtNomCliente1.setEditable(false);
-        jPanel5.add(txtNomCliente1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 100, 160, -1));
 
         jLabel33.setText("País");
         jPanel5.add(jLabel33, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 140, -1, -1));
@@ -1278,9 +1379,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jPanel5.add(lblOblig31, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, 20, -1));
 
         cmbClientes.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--", "Nuevo Cliente" }));
-        cmbClientes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbClientesActionPerformed(evt);
+        cmbClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cmbClientesMouseClicked(evt);
             }
         });
         jPanel5.add(cmbClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 100, 190, -1));
@@ -1299,6 +1400,101 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jLabel37.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel37.setText("%");
         jPanel5.add(jLabel37, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 140, -1, -1));
+
+        btnGenerarPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Report.gif"))); // NOI18N
+        btnGenerarPedido.setText("Generar Pedido");
+        btnGenerarPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGenerarPedidoActionPerformed(evt);
+            }
+        });
+        jPanel5.add(btnGenerarPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 440, 160, 40));
+
+        bntCancelarPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cancel.png"))); // NOI18N
+        bntCancelarPedido.setText("Cancelar");
+        bntCancelarPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bntCancelarPedidoActionPerformed(evt);
+            }
+        });
+        jPanel5.add(bntCancelarPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 440, 160, 40));
+
+        btnGenerarFactura.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/facturar.png"))); // NOI18N
+        btnGenerarFactura.setText("Generar Factura");
+        btnGenerarFactura.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGenerarFacturaActionPerformed(evt);
+            }
+        });
+        jPanel5.add(btnGenerarFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 440, 180, 40));
+
+        lblTotalPedido.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jPanel5.add(lblTotalPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 360, 100, 40));
+
+        jLabel53.setText("Fecha est. entrega");
+        jPanel5.add(jLabel53, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 65, 110, -1));
+        jPanel5.add(lblFechaEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 65, 150, 20));
+
+        cmbPiezaPedido.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--" }));
+        jPanel5.add(cmbPiezaPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 220, 120, -1));
+
+        jLabel54.setText("Pieza/ Colección");
+        jPanel5.add(jLabel54, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 220, 100, -1));
+
+        lblOblig42.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblOblig42.setForeground(new java.awt.Color(255, 0, 0));
+        lblOblig42.setText("*");
+        jPanel5.add(lblOblig42, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 180, 20, -1));
+
+        lblOblig43.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblOblig43.setForeground(new java.awt.Color(255, 0, 0));
+        lblOblig43.setText("*");
+        jPanel5.add(lblOblig43, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 260, 20, -1));
+
+        jLabel55.setText("Cantidad");
+        jPanel5.add(jLabel55, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 260, 70, -1));
+
+        jLabel56.setText("Tipo");
+        jPanel5.add(jLabel56, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 220, 50, -1));
+
+        lblOblig44.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblOblig44.setForeground(new java.awt.Color(255, 0, 0));
+        lblOblig44.setText("*");
+        jPanel5.add(lblOblig44, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 220, 20, -1));
+
+        jButton1.setText("OK");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel5.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 100, -1, -1));
+
+        jButton3.setText("Colección");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        jPanel5.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 220, 100, -1));
+
+        jButton2.setText("Pieza");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel5.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 220, 100, -1));
+
+        insertFactura.setText("Insertar");
+        jPanel5.add(insertFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 260, 100, -1));
+
+        txtCantPedido.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCantPedidoKeyTyped(evt);
+            }
+        });
+        jPanel5.add(txtCantPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 260, 70, -1));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -1327,78 +1523,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
         jScrollPane4.setViewportView(jTable1);
 
-        jPanel5.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 260, 540, 170));
-
-        btnGenerarPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Report.gif"))); // NOI18N
-        btnGenerarPedido.setText("Generar Pedido");
-        btnGenerarPedido.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGenerarPedidoActionPerformed(evt);
-            }
-        });
-        jPanel5.add(btnGenerarPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 450, 160, 40));
-
-        bntCancelarPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cancel.png"))); // NOI18N
-        bntCancelarPedido.setText("Cancelar");
-        bntCancelarPedido.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bntCancelarPedidoActionPerformed(evt);
-            }
-        });
-        jPanel5.add(bntCancelarPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 450, 160, 40));
-
-        btnGenerarFactura.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/facturar.png"))); // NOI18N
-        btnGenerarFactura.setText("Generar Factura");
-        btnGenerarFactura.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGenerarFacturaActionPerformed(evt);
-            }
-        });
-        jPanel5.add(btnGenerarFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 450, 180, 40));
+        jPanel5.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 300, 540, 130));
 
         jLabel38.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel38.setText("Monto Total ");
-        jPanel5.add(jLabel38, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 260, -1, 30));
-
-        lblTotalPedido.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jPanel5.add(lblTotalPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 310, 100, 40));
-
-        jLabel53.setText("Fecha est. entrega");
-        jPanel5.add(jLabel53, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 65, 110, -1));
-        jPanel5.add(lblFechaEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 65, 150, 20));
-
-        cmbPiezaPedido.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--" }));
-        jPanel5.add(cmbPiezaPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 220, 100, -1));
-
-        jLabel54.setText("Pieza");
-        jPanel5.add(jLabel54, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 220, 50, -1));
-
-        lblOblig42.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        lblOblig42.setForeground(new java.awt.Color(255, 0, 0));
-        lblOblig42.setText("*");
-        jPanel5.add(lblOblig42, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 180, 20, -1));
-
-        lblOblig43.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        lblOblig43.setForeground(new java.awt.Color(255, 0, 0));
-        lblOblig43.setText("*");
-        jPanel5.add(lblOblig43, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 220, 20, -1));
-
-        jLabel55.setText("Cantidad");
-        jPanel5.add(jLabel55, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 220, 70, -1));
-
-        cmbCantPedido.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--" }));
-        jPanel5.add(cmbCantPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 220, 100, -1));
-
-        cmbCantPedido1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--" }));
-        jPanel5.add(cmbCantPedido1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 220, 100, -1));
-
-        jLabel56.setText("Tipo");
-        jPanel5.add(jLabel56, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 220, 50, -1));
-
-        lblOblig44.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        lblOblig44.setForeground(new java.awt.Color(255, 0, 0));
-        lblOblig44.setText("*");
-        jPanel5.add(lblOblig44, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 220, 20, -1));
+        jPanel5.add(jLabel38, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 310, -1, 30));
 
         jTabbedPane1.addTab("Pedidos", jPanel5);
 
@@ -1432,6 +1561,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jLabel41.setText("Número Pedido");
         jPanel6.add(jLabel41, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, 100, 20));
+
+        txtNumPedidoFact.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNumPedidoFactKeyTyped(evt);
+            }
+        });
         jPanel6.add(txtNumPedidoFact, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 60, 120, -1));
 
         btnLimpiarFact.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cancel.png"))); // NOI18N
@@ -1805,10 +1940,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         cmbDiaPedido.setSelectedIndex(0);
         cmbMesPedido.setSelectedIndex(0);
         cmbAnioPedido.setSelectedIndex(0);
+        cmbPais1.setSelectedIndex(0);
+        txtRIF1.setText(null);
+        txtDescuento2.setText(null);
+        txtTlf3.setText(null);
     }
     
     private void nuevoClientePedido(){
-        txtNomCliente1.setEnabled(true);
         txtDescuento2.setEnabled(true);
         cmbPais1.setEnabled(true);
         txtRIF1.setEnabled(true);
@@ -2656,7 +2794,18 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     
     //MÓDULO PEDIDO
     private void btnGenerarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarPedidoActionPerformed
-        // TODO add your handling code here:
+        String numPedido = txtNumPedido.getText();
+        String nombre = cmbClientes.getSelectedItem().toString();
+        String fechaInicial = cmbDiaPedido.getSelectedItem().toString()+'/'+asigMes(cmbMesPedido.getSelectedItem().toString())+'/'+cmbAnioPedido.getSelectedItem().toString();
+        String fechaEntrega = fechaInicial;
+        
+        try {
+            cn.ejecutarInsertPedido(numPedido, nombre, fechaInicial, fechaEntrega);
+            JOptionPane.showMessageDialog(null, "Pedido generado con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            limpiarCamposPedido();
+        } catch (SQLException ex) {
+            Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnGenerarPedidoActionPerformed
 
     private void bntCancelarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntCancelarPedidoActionPerformed
@@ -2715,15 +2864,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_cmbAnioFecNacActionPerformed
-
-    private void cmbClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbClientesActionPerformed
-        
-        String opcion = cmbClientes.getSelectedItem().toString();
-        
-        if(opcion.equals("Nuevo Cliente")){
-            nuevoClientePedido();
-        }
-    }//GEN-LAST:event_cmbClientesActionPerformed
 
     //MODULO DETALLES
     private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
@@ -2876,27 +3016,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnGuardarDetalleActionPerformed
     
-//VALIDACIONES DE INTERFAZ
-    private void txtHoraFFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtHoraFFocusLost
-        
-        String horaI= txtHoraI.getText();
-        String horaF= txtHoraF.getText();
-        DateFormat horaFormato= new SimpleDateFormat("HH:MM");
-        try {
-            Date horaInicio= horaFormato.parse(horaI);
-            Date horaFin= horaFormato.parse(horaF);
-            System.out.println(horaI+" "+horaF);
-            if(horaInicio.compareTo(horaFin)>0){
-                JOptionPane.showMessageDialog(null, "Hora de finalización de la reunión no puede ser menor a la hora de inicio.", "Error", JOptionPane.ERROR_MESSAGE);
-                txtHoraF.setText(null);
-            }
-            
-        } catch (ParseException ex) {
-            Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        }
-                
-    }//GEN-LAST:event_txtHoraFFocusLost
-
     private void cmbPaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPaisActionPerformed
         
         String pais = cmbPais.getSelectedItem().toString();
@@ -2925,6 +3044,266 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             default: inicializarPiezas();cmbCantPersonas.setEnabled(true);areaDescPieza.setEnabled(true);break;
         }
     }//GEN-LAST:event_cmbTipoPiezaActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try {
+            ResultSet recorrer = cn.cargarDatosCli("PAIS", cmbClientes.getSelectedItem().toString());
+            cmbPais1.removeAllItems();
+            while(recorrer.next()){
+                cmbPais1.addItem(recorrer.getString(1));
+            }
+            recorrer = cn.cargarDatosCli("RIF", cmbClientes.getSelectedItem().toString());
+            txtRIF1.setText("");
+            while(recorrer.next()){
+                txtRIF1.setText(recorrer.getString(1));
+            }
+            recorrer = cn.cargarTelf(cmbClientes.getSelectedItem().toString());
+            while(recorrer.next()){
+                txtTlf3.setText(recorrer.getString(1)+recorrer.getString(2));
+            }
+            recorrer = cn.generic("SELECT DESCUENTO FROM CONTRATO WHERE (SELECT ID FROM CLIENTE WHERE NOMBRE='"+cmbClientes.getSelectedItem().toString()+"')= ID_CLIENTE");
+            while(recorrer.next()){
+                txtDescuento2.setText(recorrer.getString(1));
+            }
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        try{
+            ResultSet recorrer = cn.cargarPieCol("NOMBRE", "COLECCION");
+            cmbPiezaPedido.removeAllItems();
+            while(recorrer.next()){
+                cmbPiezaPedido.addItem(recorrer.getString(1));
+            }
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        try{
+            ResultSet recorrer = cn.cargarPieCol("DESCRIPCION", "PIEZA");
+            cmbPiezaPedido.removeAllItems();
+            while(recorrer.next()){
+                cmbPiezaPedido.addItem(recorrer.getString(1));
+            }
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void txtCantPedidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantPedidoKeyTyped
+        char c=evt.getKeyChar();
+        if(Character.isLetter(c)) {
+            getToolkit().beep();
+
+            evt.consume();
+
+            JOptionPane.showMessageDialog(null, "INGRESE SOLO NÚMEROS", "WARNING", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_txtCantPedidoKeyTyped
+
+    private void cmbClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmbClientesMouseClicked
+        try {
+            ResultSet recorrer = cn.cargarClientes();
+            cmbClientes.removeAllItems();
+            while(recorrer.next()){
+                cmbClientes.addItem(recorrer.getString(1));
+            }
+        } 
+        catch (SQLException ex) {
+            Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+    }//GEN-LAST:event_cmbClientesMouseClicked
+
+    private void txtNumPedidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumPedidoKeyTyped
+        
+        char c=evt.getKeyChar();
+        
+        if(Character.isLetter(c)) {
+            getToolkit().beep();
+
+            evt.consume();
+
+            JOptionPane.showMessageDialog(null, "Ingrese el número del pedido", "Error", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_txtNumPedidoKeyTyped
+
+    private void txtTlf1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTlf1KeyTyped
+        char c=evt.getKeyChar();
+        
+        if(Character.isLetter(c)) {
+            getToolkit().beep();
+
+            evt.consume();
+
+            JOptionPane.showMessageDialog(null, "Ingrese sólo 7 dígitos correspondientes a su número de telefono", "Error", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_txtTlf1KeyTyped
+
+    private void txtSalarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSalarioKeyTyped
+        char c=evt.getKeyChar();
+        
+        if(Character.isLetter(c)) {
+            getToolkit().beep();
+
+            evt.consume();
+
+            JOptionPane.showMessageDialog(null, "Ingrese sólo números en el formato xxx,xx", "Error", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_txtSalarioKeyTyped
+
+    private void txtNumEmpKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumEmpKeyTyped
+        char c=evt.getKeyChar();
+        
+        if(Character.isLetter(c)) {
+            getToolkit().beep();
+
+            evt.consume();
+
+            JOptionPane.showMessageDialog(null, "Ingrese el número de expediente", "Error", JOptionPane.INFORMATION_MESSAGE);
+            txtNumEmp.setText(null);
+        }
+    }//GEN-LAST:event_txtNumEmpKeyTyped
+
+    private void txtNombre2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombre2KeyTyped
+        char c=evt.getKeyChar();
+        
+        if(Character.isDigit(c)) {
+            getToolkit().beep();
+
+            evt.consume();
+
+            JOptionPane.showMessageDialog(null, "Ingrese un nombre válido sin números", "Error", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_txtNombre2KeyTyped
+
+    private void txtApellido2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApellido2KeyTyped
+        char c=evt.getKeyChar();
+        
+        if(Character.isDigit(c)) {
+            getToolkit().beep();
+
+            evt.consume();
+
+            JOptionPane.showMessageDialog(null, "Ingrese un nombre válido sin números", "Error", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_txtApellido2KeyTyped
+
+    private void txtTempRetrasoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTempRetrasoKeyTyped
+        char c=evt.getKeyChar();
+        
+        if(Character.isLetter(c)) {
+            getToolkit().beep();
+
+            evt.consume();
+
+            JOptionPane.showMessageDialog(null, "Ingrese una hora válida en formato HH:mm", "Error", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_txtTempRetrasoKeyTyped
+
+    private void txtMontoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMontoKeyTyped
+        char c=evt.getKeyChar();
+        
+        if(Character.isLetter(c)) {
+            getToolkit().beep();
+
+            evt.consume();
+
+            JOptionPane.showMessageDialog(null, "Ingrese sólo números en el formato xxx,xx", "Error", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_txtMontoKeyTyped
+
+    private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
+        char c=evt.getKeyChar();
+        
+        if(Character.isDigit(c)) {
+            getToolkit().beep();
+
+            evt.consume();
+
+            JOptionPane.showMessageDialog(null, "Ingrese un nombre válido", "Error", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_txtNombreKeyTyped
+
+    private void txtHoraFKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtHoraFKeyTyped
+       char c=evt.getKeyChar();
+        
+        if(Character.isLetter(c)) {
+            getToolkit().beep();
+
+            evt.consume();
+
+            JOptionPane.showMessageDialog(null, "Ingrese una hora válida en formato HH:mm", "Error", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_txtHoraFKeyTyped
+
+    private void txtNumSupervisorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumSupervisorKeyTyped
+         char c=evt.getKeyChar();
+        
+        if(Character.isLetter(c)) {
+            getToolkit().beep();
+
+            evt.consume();
+
+            JOptionPane.showMessageDialog(null, "Ingrese el número de expediente", "Error", JOptionPane.INFORMATION_MESSAGE);
+            txtNumEmp.setText(null);
+        }
+    }//GEN-LAST:event_txtNumSupervisorKeyTyped
+
+    private void txtTlf2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTlf2KeyTyped
+        char c=evt.getKeyChar();
+        
+        if(Character.isLetter(c)) {
+            getToolkit().beep();
+
+            evt.consume();
+
+            JOptionPane.showMessageDialog(null, "Ingrese sólo 7 dígitos correspondientes a su número de telefono", "Error", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_txtTlf2KeyTyped
+
+    private void txtRIFKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRIFKeyTyped
+        char c=evt.getKeyChar();
+        
+        if(Character.isLetter(c)) {
+            getToolkit().beep();
+
+            evt.consume();
+
+            JOptionPane.showMessageDialog(null, "Ingrese sólo 8 dígitos correspondientes a su número de RIF", "Error", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_txtRIFKeyTyped
+
+    private void txtDescuentoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescuentoKeyTyped
+        char c=evt.getKeyChar();
+        
+        if(Character.isLetter(c)) {
+            getToolkit().beep();
+
+            evt.consume();
+
+            JOptionPane.showMessageDialog(null, "Ingrese sólo el porcentaje del descuento", "Error", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_txtDescuentoKeyTyped
+
+    private void txtNumPedidoFactKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumPedidoFactKeyTyped
+        char c=evt.getKeyChar();
+        
+        if(Character.isLetter(c)) {
+            getToolkit().beep();
+
+            evt.consume();
+
+            JOptionPane.showMessageDialog(null, "Ingrese el número del pedido", "Error", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_txtNumPedidoFactKeyTyped
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -3004,8 +3383,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JComboBox cmbAnioFecNac;
     private javax.swing.JComboBox cmbAnioPedido;
     private javax.swing.JComboBox cmbAnioReu;
-    private javax.swing.JComboBox<String> cmbCantPedido;
-    private javax.swing.JComboBox<String> cmbCantPedido1;
     private javax.swing.JComboBox<String> cmbCantPersonas;
     private javax.swing.JComboBox cmbCargo;
     private javax.swing.JComboBox cmbClientes;
@@ -3042,6 +3419,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JComboBox cmbTsangre;
     private javax.swing.JComboBox cmbTurno;
     private javax.swing.JComboBox<String> cmbVolumen;
+    private javax.swing.JButton insertFactura;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -3202,6 +3583,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JTable tblPiezas;
     private javax.swing.JTextField txtApellido1;
     private javax.swing.JTextField txtApellido2;
+    private javax.swing.JTextField txtCantPedido;
     private javax.swing.JTextField txtCantPersonas;
     private javax.swing.JTextField txtDescuento;
     private javax.swing.JTextField txtDescuento2;
@@ -3211,7 +3593,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JTextField txtHorasExt;
     private javax.swing.JTextField txtMonto;
     private javax.swing.JTextField txtNomCliente;
-    private javax.swing.JTextField txtNomCliente1;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtNombre1;
     private javax.swing.JTextField txtNombre2;

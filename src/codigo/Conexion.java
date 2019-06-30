@@ -67,6 +67,21 @@ public class Conexion {
         return result; 
     }
     
+    public ResultSet generic(String consulta) throws SQLException{
+        ResultSet result = null;
+        try {
+            java.sql.Statement st = conexion.createStatement();
+            String sql;
+            sql = consulta;
+            result = st.executeQuery(sql);
+            return result; 
+        } catch (SQLException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return result;  
+    }
+    
     //MODULO DE EMPLEADOS
     public int ejecutarInsertEmp(int num_expediente, String pri_nombre, String pri_apellido, String seg_apellido, String fecha_nac,
             String tipo_sangre, String genero, String edo_civil, String estudios, String seg_nombre) throws SQLException{
@@ -696,5 +711,84 @@ public class Conexion {
         return result; 
     }
      
-     
+    // MÓDULO PEDIDOS
+    public int ejecutarInsertPedido(String numPedido, String nombre, String fechaI, String fechaE) throws SQLException{      
+        int result = 0;   
+        try {
+            java.sql.Statement st = conexion.createStatement();
+            String sql;
+            sql = "INSERT INTO PEDIDO(NUM_PEDIDO, FECHA_EMI, FECHA_ENT, ID_CLIENTE) VALUES ('"+numPedido+"', '"+fechaI+"', '"+fechaE+"', (SELECT ID FROM CLIENTE WHERE NOMBRE ='"+nombre+"'));";
+            result = st.executeUpdate(sql);
+        } catch (SQLException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return result; 
+    }
+        
+    public ResultSet cargarClientes() throws SQLException{
+   
+        ResultSet result = null;
+        try {
+            java.sql.Statement st = conexion.createStatement();
+            String sql;
+            sql = "SELECT NOMBRE FROM CLIENTE";
+            result = st.executeQuery(sql);
+            return result; 
+        } catch (SQLException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return result;     
+        
+    }
+    
+    public ResultSet cargarDatosCli(String campo, String nombre) throws SQLException{
+        ResultSet result = null;
+        try {
+            java.sql.Statement st = conexion.createStatement();
+            String sql;
+            sql = "SELECT "+campo+" FROM CLIENTE WHERE NOMBRE ='"+nombre+"';";
+            result = st.executeQuery(sql);
+            return result; 
+        } catch (SQLException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return result;     
+        
+    }   
+    
+    public ResultSet cargarTelf(String nombre) throws SQLException{
+        ResultSet result = null;
+        try {
+            java.sql.Statement st = conexion.createStatement();
+            String sql;
+            sql = "SELECT CODIGO, NUMERO FROM TELEFONO WHERE ID_CLI = (SELECT ID FROM CLIENTE WHERE NOMBRE = '"+nombre+"')";
+            result = st.executeQuery(sql);
+            return result; 
+        } catch (SQLException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return result;     
+        
+    } 
+        
+    public ResultSet cargarPieCol(String parametro, String tabla) throws SQLException{
+        ResultSet result = null;
+        try {
+            java.sql.Statement st = conexion.createStatement();
+            String sql;
+            sql = "SELECT "+parametro+" FROM "+tabla+";";
+            result = st.executeQuery(sql);
+            return result; 
+        } catch (SQLException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return result;  
+         
+    }
+      
 }

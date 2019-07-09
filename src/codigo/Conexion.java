@@ -160,8 +160,8 @@ public class Conexion {
             java.sql.Statement st = conexion.createStatement();
             String sql;
             sql = "SELECT E.NUM_EXPEDIENTE, E.PRI_NOMBRE, E.PRI_APELLIDO, E.SEG_APELLIDO, E.FECHA_NAC,\n" +
-                    "   E.TIPO_SANGRE, E.GENERO, E.EDO_CIVIL, E.ESTUDIOS, E.SEG_NOMBRE, T.CODIGO, T.NUMERO,\n" +
-                    "   O.NOMBRE, H.FECHAI, H.SALARIO, H.CARGO\n" +
+                    "   E.TIPO_SANGRE, initcap(E.GENERO) \"GENERO\", initcap(E.EDO_CIVIL) \"EDO_CIVIL\", initcap(E.ESTUDIOS) \"ESTUDIOS\", E.SEG_NOMBRE, T.CODIGO, T.NUMERO,\n" +
+                    "   O.NOMBRE, H.FECHAI, H.SALARIO, initcap(H.CARGO) \"CARGO\"\n" +
                     "FROM EMPLEADO E, TELEFONO T, ORGANIGRAMA O, HISTORICO_TRABAJO H\n" +
                     "WHERE E.NUM_EXPEDIENTE = "+numEmp+" AND E.NUM_EXPEDIENTE = H.ID_EMP AND E.NUM_EXPEDIENTE = T.ID_EMP\n" +
                     "	AND H.ID_ORG = O.ID;";

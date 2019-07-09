@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT E.PRI_NOMBRE, E.PRI_APELLIDO, FECHA_REU, HORAI, HORAF, MINUTAS_OBS
+	FROM REUNION R, EMPLEADO E
+	WHERE R.ID_SUP = E.NUM_EXPEDIENTE AND R.FECHA_REU= '06/06/19';]]>
+	</queryString>
+	<field name="pri_nombre" class="java.lang.String"/>
+	<field name="pri_apellido" class="java.lang.String"/>
+	<field name="fecha_reu" class="java.sql.Date"/>
+	<field name="horai" class="java.sql.Time"/>
+	<field name="horaf" class="java.sql.Time"/>
+	<field name="minutas_obs" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="59" splitType="Stretch">
+			<staticText>
+				<reportElement x="119" y="0" width="307" height="41"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="22" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Reporte Reunión]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="49">
+			<staticText>
+				<reportElement x="19" y="16" width="67" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Supervisor : ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="100" y="16" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{pri_apellido}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="225" y="16" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{pri_nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="426" y="16" width="122" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.util.Date"><![CDATA[$F{fecha_reu}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="344" y="16" width="67" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+		</band>
+		<band height="312">
+			<textField>
+				<reportElement x="86" y="106" width="351" height="161"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{minutas_obs}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="119" y="16" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.sql.Time"><![CDATA[$F{horai}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="426" y="16" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.sql.Time"><![CDATA[$F{horaf}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="19" y="16" width="67" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Desde]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="342" y="16" width="67" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Hasta]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="19" y="66" width="200" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Observaciones de la reunión]]></text>
+			</staticText>
+		</band>
+	</detail>
+</jasperReport>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="numExp" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT C.NOMBRE, C.LINEA, C.CATEGORIA, P.DESCRIPCION, M.TIPO
+FROM COLECCION C, PIEZA P, MOLDE M
+WHERE C.LINEA = $P{numExp} AND P.ID_COLECCION = C.ID AND M.ID= P.ID_MOLDE]]>
+	</queryString>
+	<field name="nombre" class="java.lang.String"/>
+	<field name="linea" class="java.lang.String"/>
+	<field name="categoria" class="java.lang.String"/>
+	<field name="descripcion" class="java.lang.String"/>
+	<field name="tipo" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="59" splitType="Stretch">
+			<staticText>
+				<reportElement x="119" y="0" width="307" height="41"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="22" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Reporte Reunión]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="50">
+			<staticText>
+				<reportElement x="19" y="11" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="119" y="11" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[linea]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="219" y="11" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[categoria]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="326" y="11" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[descripcion]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="426" y="11" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[tipo]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="49">
+			<textField>
+				<reportElement x="19" y="19" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="119" y="19" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{linea}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="219" y="19" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{categoria}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="326" y="19" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{descripcion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="426" y="19" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{tipo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

@@ -3,10 +3,6 @@ package ventanas;
 import codigo.Conexion;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
@@ -466,7 +462,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jLabel19.setText("Estudios");
         jPanel1.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 190, 50, -1));
 
-        cmbEstudios.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--", "Bachiller", "Ing. Mecánico", "Ing. Químico", "Ing. Industrial", "Ing. Producción", "Geológo" }));
+        cmbEstudios.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--", "Bachiller", "Ing. Mecánico", "Ing. Químico", "Ing. Industrial", "Ing. Producción", "Geólogo" }));
         jPanel1.add(cmbEstudios, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 190, 120, -1));
 
         lblOblig9.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -1013,16 +1009,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             new String [] {
                 "Codigo", "Pieza"
             }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+        ));
         jScrollPane8.setViewportView(tblPiezas);
+        if (tblPiezas.getColumnModel().getColumnCount() > 0) {
+            tblPiezas.getColumnModel().getColumn(0).setPreferredWidth(30);
+        }
 
         jPanel3.add(jScrollPane8, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 20, 270, 350));
 
@@ -2272,6 +2263,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                     txtApellido2.setText(result.getString("SEG_APELLIDO")); 
                     txtTlf1.setText(result.getString("NUMERO")); 
                     txtSalario.setText(result.getString("SALARIO"));
+                    cmbTsangre.setSelectedItem(result.getString("TIPO_SANGRE"));
+                    cmbGenero.setSelectedItem(result.getString("GENERO"));
+                    cmbEstudios.setSelectedItem(result.getString("ESTUDIOS"));
+                    cmbEdoCivil.setSelectedItem(result.getString("EDO_CIVIL"));
                     fechaAux= result.getString("FECHAI"); 
                 }
                 System.out.println(fechaAux);
@@ -2392,6 +2387,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void btnCancelarEmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarEmpActionPerformed
         ocultarCampObligEmp();
         limpiarCamposEmp();
+        txtNumExp.setText(String.valueOf(numEmp));
     }//GEN-LAST:event_btnCancelarEmpActionPerformed
 
     private void btnListarEmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarEmpActionPerformed
@@ -3016,6 +3012,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnGuardarDetalleActionPerformed
     
+    //VALIDADECIONES DE INTERFAZ
     private void cmbPaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPaisActionPerformed
         
         String pais = cmbPais.getSelectedItem().toString();
@@ -3137,6 +3134,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void txtTlf1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTlf1KeyTyped
         char c=evt.getKeyChar();
+        String numero= txtTlf1.getText();
         
         if(Character.isLetter(c)) {
             getToolkit().beep();
@@ -3144,6 +3142,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             evt.consume();
 
             JOptionPane.showMessageDialog(null, "Ingrese sólo 7 dígitos correspondientes a su número de telefono", "Error", JOptionPane.INFORMATION_MESSAGE);
+        }
+        
+        if(numero.length()>6){
+            JOptionPane.showMessageDialog(null, "Ingrese sólo 7 dígitos correspondientes a su número de telefono", "Error", JOptionPane.INFORMATION_MESSAGE);
+            txtTlf1.setText(null);
         }
     }//GEN-LAST:event_txtTlf1KeyTyped
 
@@ -3168,7 +3171,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             evt.consume();
 
             JOptionPane.showMessageDialog(null, "Ingrese el número de expediente", "Error", JOptionPane.INFORMATION_MESSAGE);
-            txtNumEmp.setText(null);
+            //txtNumEmp.setText(null);
         }
     }//GEN-LAST:event_txtNumEmpKeyTyped
 
@@ -3259,6 +3262,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void txtTlf2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTlf2KeyTyped
         char c=evt.getKeyChar();
+        String numero= txtTlf2.getText();
         
         if(Character.isLetter(c)) {
             getToolkit().beep();
@@ -3266,6 +3270,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             evt.consume();
 
             JOptionPane.showMessageDialog(null, "Ingrese sólo 7 dígitos correspondientes a su número de telefono", "Error", JOptionPane.INFORMATION_MESSAGE);
+        }
+        
+        if(numero.length()>6){
+            JOptionPane.showMessageDialog(null, "Ingrese sólo 7 dígitos correspondientes a su número de telefono", "Error", JOptionPane.INFORMATION_MESSAGE);
+            txtTlf2.setText(null);
         }
     }//GEN-LAST:event_txtTlf2KeyTyped
 

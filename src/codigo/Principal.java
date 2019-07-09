@@ -1,5 +1,6 @@
 package codigo;
 
+import reportes.GenerarReportes;
 import ventanas.VentanaPrincipal;
 
 /**
@@ -12,7 +13,10 @@ public class Principal {
         
         VentanaPrincipal VentanaPrincipal = new VentanaPrincipal();
         
-        VentanaPrincipal.setVisible(true);
+        //VentanaPrincipal.setVisible(true);
+        GenerarReportes g = new GenerarReportes();
+        
+        g.reportePieza(20);
         
     }
     

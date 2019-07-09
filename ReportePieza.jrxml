@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="idPieza" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT  C.NOMBRE, P.DESCRIPCION, M.FORMA, M.TAMAÑO, HP.PRECIO "PRECIOUS", (HP.PRECIO * 8000) "PRECIOBS"
+FROM COLECCION C, PIEZA P, MOLDE M, HIST_PRECIO HP, DETALLE_COLECCION DC, COL_DET CD
+WHERE C.ID= P.ID_COLECCION AND M.ID= P.ID_MOLDE AND HP.ID_PIEZA= P.ID AND C.ID= CD.ID_COL 
+	AND CD.ID_DET = DC.ID AND P.ID= $P{idPieza}
+GROUP BY C.NOMBRE, P.DESCRIPCION, M.FORMA, M.TAMAÑO, HP.PRECIO, HP.PRECIO;]]>
+	</queryString>
+	<field name="nombre" class="java.lang.String"/>
+	<field name="descripcion" class="java.lang.String"/>
+	<field name="forma" class="java.lang.String"/>
+	<field name="tamaÑo" class="java.lang.String"/>
+	<field name="PRECIOUS" class="java.math.BigDecimal"/>
+	<field name="PRECIOBS" class="java.math.BigDecimal"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="114" y="10" width="289" height="54"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ficha de Pieza]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="247" splitType="Stretch">
+			<textField>
+				<reportElement x="14" y="23" width="174" height="20"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="198" y="23" width="121" height="20"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{descripcion}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="219" y="69" width="100" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Forma]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="319" y="69" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{forma}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="219" y="107" width="100" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tamaño]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="319" y="107" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{tamaÑo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="219" y="183" width="100" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Precio UsD.]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="319" y="183" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{PRECIOUS}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="219" y="143" width="100" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Precio Bs.]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="319" y="143" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{PRECIOBS}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="26" y="69" width="126" height="134"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[IMAGEN]]></text>
+			</staticText>
+		</band>
+	</detail>
+</jasperReport>
